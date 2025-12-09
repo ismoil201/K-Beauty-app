@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingHorizontal="16dp">
+
+    <!-- Top Title -->
+    <TextView
+        android:id="@+id/tvItemsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popular now"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserrat_bold" />
+
+    <!-- Sort + Filter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/btnSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort"
+            android:padding="8dp"
+            android:background="@drawable/sort_filter_bg"
+            android:drawablePadding="6dp"
+            android:drawableStart="@drawable/ic_sort" />
+
+        <TextView
+            android:id="@+id/btnFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/sort_filter_bg"
+            android:drawableStart="@drawable/ic_filter"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Recycler -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <!-- Loading -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminate="true"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+
+    <!-- Product List -->
+
+</LinearLayout>
