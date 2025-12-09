@@ -15,17 +15,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.fragmentContainer) { v, insets ->
-//            val bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-//            v.setPadding(0, 0, 0, bottomInset)
-//            insets
-//        }
+    WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+            v.setPadding(0, 0, 0, bottom)
+            insets
+        }
 
     }
 }

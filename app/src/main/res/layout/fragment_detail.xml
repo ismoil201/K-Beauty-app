@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- MAIN PRODUCT IMAGE SLIDER -->
+        <ImageView
+            android:id="@+id/viewPagerImages"
+            android:layout_width="match_parent"
+            android:src="@drawable/img"
+            android:scaleType="centerCrop"
+            android:layout_height="300dp" />
+
+        <!-- DOT INDICATOR -->
+        <LinearLayout
+            android:id="@+id/dotsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="8dp" />
+
+        <!-- SIZE SELECTOR -->
+
+
+        <!-- PRODUCT TITLE -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:text="NIke Sneakers"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- SUBTITLE -->
+<!--        <TextView-->
+<!--            android:id="@+id/tvSubTitle"-->
+<!--            android:text="Vision Alta Men’s Shoes Size (All Colours)"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="#666"-->
+<!--            android:fontFamily="@font/montserrat_regular"-->
+<!--            android:layout_marginStart="12dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content" />-->
+
+        <!-- RATING + REVIEWS -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="1"
+                android:isIndicator="true"
+                android:rating="4"
+                android:progressTint="#FFCC00"
+                android:secondaryProgressTint="#FFCC00"
+                android:minHeight="20dp"
+                android:maxHeight="20dp"
+                style="@style/Widget.AppCompat.RatingBar.Small" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvReviews"-->
+<!--                android:text="56,890"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textColor="#666"-->
+<!--                android:fontFamily="@font/montserrat_regular"-->
+<!--                android:layout_marginStart="6dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="wrap_content"/>-->
+        </LinearLayout>
+
+        <!-- PRICE SECTION -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical">
+
+
+            <TextView
+                android:id="@+id/tvNewPrice"
+                android:text="$1,500"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/montserrat_extrabold"
+                android:textSize="20sp"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/tvDiscount"
+                android:text="50% Off"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="#FF3B30"
+                android:layout_marginStart="10dp" />
+        </LinearLayout>
+
+        <!-- PRODUCT DETAILS TEXT -->
+        <TextView
+            android:text="Product Details"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvDetails"
+            android:text="Perhaps the most iconic sneaker of all-time..."
+            android:textSize="14sp"
+            android:textColor="#444"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:lineSpacingExtra="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="12dp">
+
+            <!-- PRICE TEXT -->
+            <LinearLayout
+                android:id="@+id/qtyContainer"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@drawable/qty_bg"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="4dp">
+
+                <!-- MINUS BUTTON -->
+                <TextView
+                    android:id="@+id/btnMinus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:background="@drawable/qty_minus_bg"
+                    android:textColor="#222"
+                    android:layout_marginEnd="6dp"/>
+
+                <!-- QUANTITY TEXT -->
+                <TextView
+                    android:id="@+id/tvQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#000"
+                    android:layout_marginEnd="6dp"/>
+
+                <!-- PLUS BUTTON -->
+                <TextView
+                    android:id="@+id/btnPlus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textSize="18sp"
+                    android:background="@drawable/qty_plus_bg"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+
+            <!-- ADD TO CART BUTTON -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAddToCart"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_bg"
+                android:text="Add to Cart"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:drawableStart="@drawable/cart_4_svg"
+                android:drawablePadding="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/qtyContainer"
+                app:layout_constraintBottom_toBottomOf="@id/qtyContainer" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <!-- DELIVERY INFO BOX -->
+
+
+
+
+        <!-- SIMILAR ITEMS SECTION -->
+        <TextView
+            android:text="Similar To"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSimilar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:nestedScrollingEnabled="false"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_product" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

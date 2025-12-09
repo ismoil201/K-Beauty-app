@@ -18,7 +18,7 @@ object RetrofitClient {
         }
         .build()
 
-    val api: ApiService by lazy {
+    val instance: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttp)

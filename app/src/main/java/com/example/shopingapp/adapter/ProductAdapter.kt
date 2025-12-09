@@ -7,7 +7,9 @@ import com.bumptech.glide.Glide
 import com.example.shopingapp.databinding.ItemProductBinding
 import com.example.shopingapp.model.Product
 
-class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductVh>() {
+class ProductAdapter(
+    private val onClickItem: onClickItem? = null
+) : RecyclerView.Adapter<ProductAdapter.ProductVh>() {
 
     private val list = ArrayList<Product>()
 
@@ -32,12 +34,21 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductVh>() {
 
         holder.binding.tvName.text = item.name
         holder.binding.tvDesc.text = item.description
-        holder.binding.tvPrice.text = "₹${item.price}"
+        holder.binding.tvPrice.text = "${item.price}$"
 
         Glide.with(holder.itemView)
             .load(item.imageUrl)
             .into(holder.binding.imgProduct)
+
+        // click for both Home + Similar items
+        holder.itemView.setOnClickListener {
+            onClickItem?.onClick(item.id)
+        }
     }
 
     override fun getItemCount(): Int = list.size
+}
+
+interface onClickItem {
+    fun onClick(id: Int?)
 }

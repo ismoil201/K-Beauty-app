@@ -1,6 +1,5 @@
 package com.example.shopingapp.model
 
-import Product
 
 data class CartItem(
     val id: Int,

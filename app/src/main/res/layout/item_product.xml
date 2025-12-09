@@ -23,7 +23,7 @@
             android:scaleType="centerCrop"
             android:background="@drawable/rounded_image_bg"
             android:clipToOutline="true"
-            android:src="@drawable/splash3" />
+            android:src="@drawable/img" />
 
         <!-- NAME -->
         <TextView
