@@ -1,5 +1,6 @@
 package com.example.shopingapp.view
 
+import SessionManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,12 +13,14 @@ import com.example.shopingapp.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var sessionManager: SessionManager
 
     private lateinit var  binding : FragmentProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        sessionManager = SessionManager(requireContext())
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,6 +31,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        updateUserUI()
 
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_registerFragment)
@@ -55,5 +60,24 @@ class ProfileFragment : Fragment() {
 
 
     }
+
+    private fun updateUserUI() {
+        if (sessionManager.isLoggedIn()) {
+
+            // PROMO YO‘Q
+            binding.layoutPromo.visibility = View.GONE
+
+            // USER INFO BOR
+            binding.layoutUserInfo.root.visibility = View.VISIBLE
+            binding.layoutUserInfo.tvUserName.text = sessionManager.getName()
+            binding.layoutUserInfo.tvUserEmail.text = sessionManager.getEmail()
+
+        } else {
+            // PROMO BOR
+            binding.layoutPromo.visibility = View.VISIBLE
+            binding.layoutUserInfo.root.visibility = View.GONE
+        }
+    }
+
 
 }
