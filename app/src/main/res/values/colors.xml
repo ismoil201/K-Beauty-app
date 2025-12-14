@@ -5,5 +5,7 @@
     <color name="red">#FF0000</color>
     <color name="light_pink">#FF93AA</color>
     <color name="pink">#F83758</color>
+    <color name="green">#6EC17A</color>
+    <color name="gray">#999999</color>
 
 </resources>

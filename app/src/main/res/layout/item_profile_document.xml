@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:orientation="horizontal"
+    android:id="@+id/root"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+
+    android:gravity="center_vertical"
+    android:paddingHorizontal="16dp">
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/paper_document_svg"
+        android:tint="#9E9E9E"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Terms of Service "
+        android:textSize="15sp"
+        android:textColor="#111111"
+        android:fontFamily="@font/montserrat_medium"/>
+</LinearLayout>

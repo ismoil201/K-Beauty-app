@@ -1,16 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ProfileFragment">
+    android:background="@android:color/white">
 
-
-
-    <TextView
-        android:textSize="42dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile fragment" />
+        android:layout_height="wrap_content"
 
-</FrameLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Page"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat_bold"/>
+
+        <!-- ================= PROMO ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원이라면 누구나 무료배송"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="지금 가입하고 최대 30% 할인 쿠폰 4종 받아보세요!"
+                android:textSize="14sp"
+                android:textColor="@color/pink"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <!-- BUTTONS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Register"
+                    android:background="@drawable/button_bg"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    app:cornerRadius="4dp"
+                    android:backgroundTint="@color/light_pink"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_login"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/butttom_bg1"
+                    android:layout_marginStart="12dp"
+                    android:text="Login"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    app:cornerRadius="4dp"
+                    android:backgroundTint="#000000"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- DIVIDER -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#F4F4F4"/>
+
+        <!-- ================= 추천 ================= -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Suggestion"
+            android:textSize="14sp"
+            android:textColor="#9E9E9E"
+            android:fontFamily="@font/montserrat_medium"/>
+
+        <include
+            android:id="@+id/rowBonus"
+            layout="@layout/item_profile_cupon"
+            app:icon="@drawable/gift_svg"
+            app:title="Cupon"/>
+
+        <!-- DIVIDER -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="#EEEEEE"/>
+
+        <!-- ================= 도움말 ================= -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Help"
+            android:textSize="14sp"
+            android:textColor="#9E9E9E"
+            android:fontFamily="@font/montserrat_medium"/>
+
+        <include
+            android:id="@+id/rowSupport"
+            layout="@layout/item_profile_support"
+            app:icon="@drawable/support_svg"
+            app:title="고객센터"/>
+
+        <include
+            android:id="@+id/rowAnnouncement"
+            layout="@layout/item_profile_notice"
+            app:icon="@drawable/notice_svg"
+            app:title="공지사항"/>
+
+        <include
+            android:id="@+id/rowPrivacy"
+            layout="@layout/item_profile_user_shield"
+            app:icon="@drawable/user_shield_svg"
+            app:title="개인정보 처리방침"/>
+
+        <include
+            android:id="@+id/rowTerms"
+            layout="@layout/item_profile_document"
+            app:icon="@drawable/paper_document_svg"
+            app:title="서비스 이용 약관"/>
+
+        <include
+            android:id="@+id/rowOpenSource"
+            layout="@layout/item_profile_code"
+            app:icon="@drawable/code_svg"
+            app:title="오픈소스 라이선스"/>
+
+    </LinearLayout>
+</ScrollView>

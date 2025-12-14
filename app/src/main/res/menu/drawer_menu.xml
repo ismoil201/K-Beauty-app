@@ -1,0 +1,44 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item android:title="Dark Mode"-->
+<!--        android:icon="@drawable/ic_sun">-->
+<!--        <menu>-->
+<!--            &lt;!&ndash; Switch qo‘yish uchun &ndash;&gt;-->
+<!--            <item-->
+<!--                android:id="@+id/switch_dark"-->
+<!--                android:title=""-->
+<!--                android:actionLayout="@layout/switch_item"/>-->
+<!--        </menu>-->
+<!--    </item>-->
+
+    <item
+        android:id="@+id/account_info"
+        android:title="Account Information"
+        android:icon="@drawable/profile_svg"/>
+
+    <item
+        android:id="@+id/password"
+        android:title="Password"
+        android:icon="@drawable/lock"/>
+
+    <item
+        android:id="@+id/order"
+        android:title="Order"
+        android:icon="@drawable/ic_order"/>
+
+    <item
+        android:id="@+id/cards"
+        android:title="About us"
+        android:icon="@drawable/info_circle_svg"/>
+
+
+
+
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/logout_svg"
+        android:titleTextColor="@color/red"/>
+
+</menu>

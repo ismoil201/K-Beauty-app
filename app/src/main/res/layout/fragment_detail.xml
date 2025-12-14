@@ -1,252 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true"
-    android:background="@color/white">
+    android:background="@android:color/white">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <!-- CONTENT -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingBottom="96dp"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- MAIN PRODUCT IMAGE SLIDER -->
-        <ImageView
-            android:id="@+id/viewPagerImages"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:src="@drawable/img"
-            android:scaleType="centerCrop"
-            android:layout_height="300dp" />
-
-        <!-- DOT INDICATOR -->
-        <LinearLayout
-            android:id="@+id/dotsContainer"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:padding="8dp" />
+            android:orientation="vertical">
 
-        <!-- SIZE SELECTOR -->
+            <!-- IMAGE -->
+            <ImageView
+                android:id="@+id/ivProduct"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img"
+                android:contentDescription="product image"/>
 
-
-        <!-- PRODUCT TITLE -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:text="NIke Sneakers"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_medium"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- SUBTITLE -->
-<!--        <TextView-->
-<!--            android:id="@+id/tvSubTitle"-->
-<!--            android:text="Vision Alta Men’s Shoes Size (All Colours)"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textColor="#666"-->
-<!--            android:fontFamily="@font/montserrat_regular"-->
-<!--            android:layout_marginStart="12dp"-->
-<!--            android:layout_marginBottom="6dp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" />-->
-
-        <!-- RATING + REVIEWS -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical">
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:stepSize="1"
-                android:isIndicator="true"
-                android:rating="4"
-                android:progressTint="#FFCC00"
-                android:secondaryProgressTint="#FFCC00"
-                android:minHeight="20dp"
-                android:maxHeight="20dp"
-                style="@style/Widget.AppCompat.RatingBar.Small" />
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvReviews"-->
-<!--                android:text="56,890"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textColor="#666"-->
-<!--                android:fontFamily="@font/montserrat_regular"-->
-<!--                android:layout_marginStart="6dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_width="wrap_content"/>-->
-        </LinearLayout>
-
-        <!-- PRICE SECTION -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical">
-
-
+            <!-- BRAND -->
             <TextView
-                android:id="@+id/tvNewPrice"
-                android:text="$1,500"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:fontFamily="@font/montserrat_extrabold"
-                android:textSize="20sp"
-                android:textColor="#000" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="다슈"
+                android:textSize="13sp"
+                android:textColor="#9E9E9E"
+                android:fontFamily="@font/montserrat_medium"/>
 
+            <!-- NAME -->
             <TextView
-                android:id="@+id/tvDiscount"
-                android:text="50% Off"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textColor="#FF3B30"
-                android:layout_marginStart="10dp" />
-        </LinearLayout>
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="2dp"
+                android:text="맨즈 멀티 커버 스틱 파운데이션 (3color)"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_semibold"
+                android:maxLines="2"
+                android:ellipsize="end"/>
 
-        <!-- PRODUCT DETAILS TEXT -->
-        <TextView
-            android:text="Product Details"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginStart="12dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tvDetails"
-            android:text="Perhaps the most iconic sneaker of all-time..."
-            android:textSize="14sp"
-            android:textColor="#444"
-            android:fontFamily="@font/montserrat_regular"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginBottom="12dp"
-            android:lineSpacingExtra="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:padding="12dp">
-
-            <!-- PRICE TEXT -->
+            <!-- PRICE -->
             <LinearLayout
-                android:id="@+id/qtyContainer"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:background="@drawable/qty_bg"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:padding="4dp">
+                android:gravity="center_vertical">
 
-                <!-- MINUS BUTTON -->
                 <TextView
-                    android:id="@+id/btnMinus"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:gravity="center"
-                    android:text="-"
-                    android:textSize="18sp"
-                    android:background="@drawable/qty_minus_bg"
-                    android:textColor="#222"
-                    android:layout_marginEnd="6dp"/>
-
-                <!-- QUANTITY TEXT -->
-                <TextView
-                    android:id="@+id/tvQty"
+                    android:id="@+id/tvSkidka"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#000"
-                    android:layout_marginEnd="6dp"/>
+                    android:text="35%"
+                    android:textColor="#FF3B30"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_bold"/>
 
-                <!-- PLUS BUTTON -->
                 <TextView
-                    android:id="@+id/btnPlus"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:gravity="center"
-                    android:text="+"
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="24,800원"
                     android:textSize="18sp"
-                    android:background="@drawable/qty_plus_bg"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="#000000"
+                    android:fontFamily="@font/montserrat_bold"/>
             </LinearLayout>
 
+            <!-- RATING -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <!-- ADD TO CART BUTTON -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnAddToCart"
-                android:layout_width="160dp"
-                android:layout_height="48dp"
-                android:background="@drawable/button_bg"
-                android:text="Add to Cart"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:drawableStart="@drawable/cart_4_svg"
-                android:drawablePadding="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/qtyContainer"
-                app:layout_constraintBottom_toBottomOf="@id/qtyContainer" />
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/star_svg"
+                    android:contentDescription="rating"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="4.9 · 리뷰 904"
+                    android:textSize="13sp"
+                    android:textColor="#FF9800"
+                    android:fontFamily="@font/montserrat_medium"/>
+            </LinearLayout>
 
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#EEEEEE"/>
 
+            <!-- SHORT INFO -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="옵션 선택 후 구매 가능합니다."
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:fontFamily="@font/montserrat_regular"/>
 
-        <!-- DELIVERY INFO BOX -->
+            <!-- SIMILAR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="O'xshash mahsulotlar"
+                android:textSize="16sp"
+                android:textColor="#111"
+                android:fontFamily="@font/montserrat_semibold"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSimilar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                tools:listitem="@layout/item_product"
+                android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
+    <!-- FIXED BOTTOM BAR -->
+    <!-- FIXED BOTTOM BAR -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@android:color/white"
+        android:elevation="8dp"
+        android:gravity="center_vertical">
 
+        <!-- LIKE -->
+        <ImageView
+            android:id="@+id/btnLike"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart_svg"
+            android:padding="6dp"
+            android:contentDescription="like"/>
 
-        <!-- SIMILAR ITEMS SECTION -->
-        <TextView
-            android:text="Similar To"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!-- ADD TO CART -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddToCart"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="장바구니 담기"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            android:textColor="#333333"
+            android:fontFamily="@font/montserrat_semibold"
+            android:background="@drawable/button_outline_gray"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSimilar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:nestedScrollingEnabled="false"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_product" />
+        <!-- BUY -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBuy"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="구매하기"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/montserrat_bold"
+            android:background="@drawable/button_bg"/>
     </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -33,7 +33,7 @@ class ProductAdapter(
         val item = list[position]
 
         holder.binding.tvName.text = item.name
-        holder.binding.tvDesc.text = item.description
+       // holder.binding.tvDesc.text = item.description
         holder.binding.tvPrice.text = "${item.price}$"
 
         Glide.with(holder.itemView)

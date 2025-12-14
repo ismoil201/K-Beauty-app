@@ -5,20 +5,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white"
-    android:paddingHorizontal="16dp">
+    android:background="@color/white">
 
-    <!-- Top Title -->
-    <TextView
-        android:id="@+id/tvItemsCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Popular now"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/montserrat_bold" />
-
-    <!-- Sort + Filter -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,26 +14,146 @@
         android:gravity="end"
         android:layout_marginTop="8dp">
 
-        <TextView
-            android:id="@+id/btnSort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort"
-            android:padding="8dp"
-            android:background="@drawable/sort_filter_bg"
-            android:drawablePadding="6dp"
-            android:drawableStart="@drawable/ic_sort" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnAll"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        android:backgroundTint="@color/pink">
 
         <TextView
-            android:id="@+id/btnFilter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter"
-            android:padding="8dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/sort_filter_bg"
-            android:drawableStart="@drawable/ic_filter"/>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="All"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnPerfume"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Perfume"
+            android:textColor="#8B8B8B"/>
+    </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnMakeup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Makeup"
+                android:textColor="#8B8B8B" />
+        </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnFashion"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Fashion"
+            android:textColor="#8B8B8B"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnBodycare"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Bodycare"
+                android:textColor="#8B8B8B"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnShoes"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Shoes"
+                android:textColor="#8B8B8B"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvItemsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popular now"
+        android:textSize="15sp"
+        android:layout_marginTop="6dp"
+        android:paddingStart="12dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserrat_bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,6 +164,7 @@
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:visibility="gone"/>
 
         <!-- Loading -->

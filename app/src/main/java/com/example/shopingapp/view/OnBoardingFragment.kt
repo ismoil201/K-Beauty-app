@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.shopingapp.R
 import com.example.shopingapp.adapter.OnboardingAdapter
 import com.example.shopingapp.adapter.OnboardingData
 import com.example.shopingapp.databinding.FragmentOnBoardingBinding
-
 class OnboardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
@@ -25,20 +26,33 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // ✅ ANDROID 15/16 FIX — BUTTON MARGIN
+        ViewCompat.setOnApplyWindowInsetsListener(binding.btnGetStart) { v, insets ->
+            val bottomInset =
+                insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+
+            val params = v.layoutParams as ViewGroup.MarginLayoutParams
+            params.bottomMargin =
+                bottomInset + resources.getDimensionPixelSize(R.dimen.onboarding_button_margin)
+
+            v.layoutParams = params
+            insets
+        }
 
         setupViewPager()
         setupDots()
 
-        binding.btnCreateAccount.setOnClickListener {
+        binding.btnGetStart.setOnClickListener {
             findNavController().navigate(R.id.action_onboardingFragment_to_mainFragment)
         }
-
-        binding.tvAlreadyAccount.setOnClickListener {
-            // login screen
-        }
-
-        return binding.root
     }
+
 
     private fun setupViewPager() {
         val data = listOf(

@@ -22,13 +22,13 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/btnCreateAccount"
+        app:layout_constraintBottom_toTopOf="@id/btn_get_start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Create Account Button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCreateAccount"
+        android:id="@+id/btn_get_start"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginHorizontal="24dp"
@@ -37,23 +37,11 @@
         android:textColor="@android:color/white"
         android:backgroundTint="@color/light_pink"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvAlreadyAccount"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="12dp"/>
 
     <!-- Already Have an Account -->
-    <TextView
-        android:id="@+id/tvAlreadyAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already Have an Account"
-        android:textColor="@color/pink"
-        android:textStyle="bold"
-        android:fontFamily="@font/montserrat_bold"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
