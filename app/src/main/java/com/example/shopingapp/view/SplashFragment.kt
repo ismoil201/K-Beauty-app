@@ -1,5 +1,6 @@
 package com.example.shopingapp.view
 
+import SessionManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,11 +14,13 @@ import com.example.shopingapp.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
 
+    private lateinit var sessionManager: SessionManager
     private lateinit var  binding : FragmentSplashBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        sessionManager = SessionManager(requireContext())
         binding = FragmentSplashBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -25,10 +28,23 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
-        },3000)
+        checkUserIsLogged()
 
+
+    }
+
+    private fun checkUserIsLogged(){
+
+        if(sessionManager.isLoggedIn()){
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
+
+            },1000)
+        }else{
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
+            },2000)
+        }
     }
 
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/item_product_delivery"
+    android:paddingVertical="6dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Delivery fee"
+        android:textSize="14sp"
+        android:textColor="#777777"
+        android:fontFamily="@font/montserrat_medium"/>
+
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Free shipping"
+        android:textSize="15sp"
+        android:textColor="#FF9800"
+        android:fontFamily="@font/montserrat_semibold"/>
+</LinearLayout>

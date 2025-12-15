@@ -1,15 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.OrderFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F5F5F5">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:textSize="42dp"
+
+    <!-- ================= CONTENT ================= -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Order fragment" />
+        android:paddingBottom="64dp"
+        android:fillViewport="true">
 
-</FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- ================= TOP SELECT BAR ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingHorizontal="16dp">
+
+                <!-- 전체선택 -->
+                <CheckBox
+                    android:id="@+id/cbSelectAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체선택 (3/4)"
+                    android:textSize="14sp"
+                    android:textColor="#444444"
+                    android:buttonTint="#000000"/>
+
+                <!-- spacer -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <!-- 품절삭제 -->
+                <TextView
+                    android:id="@+id/tvDeleteSoldOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="품절삭제"
+                    android:textSize="14sp"
+                    android:textColor="#111111"
+                    android:padding="8dp"/>
+
+                <!-- 선택삭제 -->
+                <TextView
+                    android:id="@+id/tvDeleteSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="선택삭제"
+                    android:textSize="14sp"
+                    android:textColor="#111111"
+                    android:padding="8dp"/>
+            </LinearLayout>
+
+            <!-- divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"/>
+
+
+            <!-- SELLER TITLE -->
+            <TextView
+                android:id="@+id/tvSellerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="바디홀릭 배송상품"
+                android:textSize="18sp"
+                android:textColor="#111111"
+                android:padding="16dp"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- ================= ORDER LIST ================= -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_cart_product"/>
+
+            <!-- ================= 예상 결제금액 ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/white"
+                android:padding="16dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="예상 결제금액"
+                    android:textSize="18sp"
+                    android:textColor="#111111"
+                    android:fontFamily="@font/montserrat_bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- 총 상품금액 -->
+                <include
+                    android:id="@+id/item_price_row"
+
+                    layout="@layout/item_price_row"
+                    app:title="Umumiy narx"
+                    />
+
+                <!-- 상품할인 -->
+                <include
+                    android:id="@+id/item_price_discout_row"
+
+                    layout="@layout/item_price_discout_row"
+                    app:title="mahsulot chegirmasi"
+                  />
+
+                <!-- 배송비 -->
+                <include
+                    android:id="@+id/item_product_delivery"
+
+                    layout="@layout/item_product_delivery"
+                    app:title="pochta puli"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- 최종 금액 -->
+                <include
+                    android:id="@+id/item_price_finally"
+
+                    layout="@layout/item_price_finally"
+                    app:title="barcha mahsulotlar narxi "
+
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ================= BOTTOM BUTTON ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:background="#000000"
+        android:gravity="center"
+        android:elevation="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnOrder"
+            android:text="127,150원 주문하기"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/montserrat_bold"/>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

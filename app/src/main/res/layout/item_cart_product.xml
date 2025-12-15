@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutCartItem"
+    android:background="@color/white"
+
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp">
+
+    <!-- ================= TOP ROW ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="top">
+
+        <!-- CHECK -->
+        <CheckBox
+            android:padding="12dp"
+            android:id="@+id/cbSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- IMAGE -->
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="72dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img"/>
+
+        <!-- INFO -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvBrand"
+                android:text="바디홀릭"
+                android:textSize="12sp"
+                android:textColor="#8A8A8A"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvProductName"
+                android:text="[3관왕 수상✨][1+1] 포션 바디미스트..."
+                android:textSize="14sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_semibold"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvShipping"
+                android:text="오늘출발 · 오후 12시 전 주문 시"
+                android:textSize="12sp"
+                android:textColor="#2979FF"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- REMOVE -->
+        <ImageView
+            android:id="@+id/btnRemove"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cancel_svg"/>
+    </LinearLayout>
+
+    <!-- ================= OPTION ================= -->
+    <TextView
+        android:id="@+id/tvOption"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/white"
+        android:layout_height="wrap_content"
+        android:text="핑크포션 / 옐로우포션"
+        android:textSize="13sp"
+        android:textColor="#555555"
+        android:fontFamily="@font/montserrat_regular"
+        android:background="#F5F5F5"
+        android:padding="10dp"
+        android:layout_marginTop="12dp"/>
+
+    <!-- ================= QTY + PRICE ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical">
+
+        <!-- QTY -->
+        <LinearLayout
+            android:id="@+id/layoutQty"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="4dp">
+
+            <TextView
+                android:id="@+id/btnMinus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:text="−"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@drawable/qty_minus_bg"/>
+
+            <TextView
+                android:id="@+id/tvQty"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="14sp"
+                android:textColor="#111111"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <TextView
+                android:id="@+id/btnPlus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:textSize="18sp"
+                android:text="+"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@drawable/qty_plus_bg"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <!-- PRICE -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvOriginalPrice"
+                android:text="19,800원"
+                android:textSize="13sp"
+                android:textColor="#BDBDBD"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvFinalPrice"
+                android:text=" 9,900원"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

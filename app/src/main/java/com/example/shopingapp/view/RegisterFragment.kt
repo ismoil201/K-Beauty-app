@@ -12,6 +12,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.example.shopingapp.R
 import com.example.shopingapp.databinding.FragmentRegisterBinding
+import com.example.shopingapp.model.RegisterRequest
+import com.example.shopingapp.model.SimpleResponse
+import com.example.shopingapp.network.AuthRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterFragment : Fragment() {
 
@@ -61,57 +67,59 @@ class RegisterFragment : Fragment() {
     }
 
     private fun register() {
+
+        val userName = binding.tilUserName.editText?.text.toString().trim()
         val email = binding.tilEmail.editText?.text.toString().trim()
+
         val password = binding.tilPassword.editText?.text.toString()
         val confirm = binding.tilConfirmPassword.editText?.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            toast("Fill all fields")
+            Toast.makeText(requireActivity(), "Fill all fields", Toast.LENGTH_SHORT).show()
+
             return
         }
 
         if (password != confirm) {
-            toast("Passwords do not match")
+            Toast.makeText(requireActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+
             return
         }
 
-        // 🔥 API CALL
-//        RetrofitClient.instance.register(
-//            RegisterRequest(email, password, "Ismoil")
-//        ).enqueue(object : Callback<AuthResponse> {
-//
-//            override fun onResponse(
-//                call: Call<AuthResponse>,
-//                response: Response<AuthResponse>
-//            ) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    val res = response.body()!!
-//
-//                    // ✅ SAVE SESSION
-                    sessionManager.saveLogin(
-                        token = "res.token",
-                        name = "Ismoil Jurakhonov",
-                        email = "ismoiljurakhonov1@gmail.com"
+        RetrofitClient.instance.register(
+            RegisterRequest(
+                email = email,
+                password = password,
+                fullName = userName
+            )
+        ).enqueue(object : Callback<SimpleResponse> {
+
+            override fun onResponse(
+                call: Call<SimpleResponse>,
+                response: Response<SimpleResponse>
+            ) {
+                if (response.isSuccessful) {
+
+
+                    Toast.makeText(requireActivity(), "Register success", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(
+                        R.id.action_registerFragment_to_loginFragment
                     )
 
-//                    // ✅ PROFILE ga qaytamiz
-//                    findNavController().navigate(
-//                        R.id.action_registerFragment_to_profileFragment
-//                    )
-//                } else {
-//                    toast("Register failed")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-//                toast(t.message ?: "Error")
-//            }
-//        })
+                } else {
+                    Toast.makeText(requireActivity(), "Register failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                Toast.makeText(requireActivity(), t.message ?: "Error", Toast.LENGTH_SHORT).show()
+
+
+            }
+        })
     }
 
-    private fun toast(msg: String) {
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-    }
+
 
 
 

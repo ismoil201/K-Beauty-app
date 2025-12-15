@@ -1,5 +1,6 @@
 package com.example.shopingapp.view
 
+import SessionManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -18,6 +19,10 @@ import com.example.shopingapp.R
 import com.example.shopingapp.adapter.ProductAdapter
 import com.example.shopingapp.adapter.onClickItem
 import com.example.shopingapp.databinding.FragmentDetailBinding
+import com.example.shopingapp.model.CartAddRequest
+import com.example.shopingapp.model.CartItem
+import com.example.shopingapp.model.Order
+import com.example.shopingapp.model.OrderRequest
 import com.example.shopingapp.model.Product
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +33,7 @@ class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private var productId: Int = -1
     private var isBottomBarVisible = true
+    private lateinit var sessionManager: SessionManager
 
 
     // SIMILAR PRODUCTS ADAPTER (with click)
@@ -42,6 +48,9 @@ class DetailFragment : Fragment() {
     })
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        sessionManager = SessionManager(requireContext())
+
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -79,13 +88,106 @@ class DetailFragment : Fragment() {
             }
         }
         binding.btnAddToCart.setOnClickListener {
-            // TODO: cart logic
-            Toast.makeText(requireContext(), "장바구니에 담았습니다", Toast.LENGTH_SHORT).show()
+
+            if (!sessionManager.isLoggedIn()) {
+                findNavController().navigate(R.id.loginFragment)
+                return@setOnClickListener
+            }
+
+            val userId = sessionManager.getUserId()
+
+            RetrofitClient.instance.addToCart(
+                CartAddRequest(
+                    userId = userId,
+                    productId = productId,
+                    quantity = 1
+                )
+            ).enqueue(object : Callback<CartItem> {
+
+                override fun onResponse(
+                    call: Call<CartItem>,
+                    response: Response<CartItem>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            requireContext(),
+                            "🛒 장바구니에 담았습니다",
+                            Toast.LENGTH_SHORT
+
+                        ).show()
+                        Log.d("USER_ID", "userId=$userId" )
+
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "장바구니 실패",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("USER_ID", "userId=$userId" + response.message())
+
+                    }
+                }
+
+                override fun onFailure(call: Call<CartItem>, t: Throwable) {
+                    Toast.makeText(
+                        requireContext(),
+                        t.message ?: "Network error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
         }
 
+
         binding.btnBuy.setOnClickListener {
-            // TODO: checkout
-            Toast.makeText(requireContext(), "구매 진행", Toast.LENGTH_SHORT).show()
+
+            if (!sessionManager.isLoggedIn()) {
+                findNavController().navigate(R.id.loginFragment)
+                return@setOnClickListener
+            }
+
+            val userId = sessionManager.getUserId()
+
+            RetrofitClient.instance.createOrder(
+                OrderRequest(
+                    userId = userId,
+                    address = "Seoul, Gangnam",
+                    totalAmount = binding.tvPrice.text
+                        .toString()
+                        .replace("$", "")
+                        .toDouble()
+                )
+            ).enqueue(object : Callback<Order> {
+
+                override fun onResponse(
+                    call: Call<Order>,
+                    response: Response<Order>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            requireContext(),
+                            "주문 완료",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        findNavController().navigate(R.id.orderFragment)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "주문 실패",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Order>, t: Throwable) {
+                    Toast.makeText(
+                        requireContext(),
+                        t.message ?: "Network error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
         }
 
         binding.btnLike.setOnClickListener {

@@ -1,7 +1,10 @@
 package com.example.shopingapp.network
 
+import com.example.shopingapp.model.AuthResponse
 import com.example.shopingapp.model.CartAddRequest
 import com.example.shopingapp.model.CartItem
+import com.example.shopingapp.model.LoginRequest
+import com.example.shopingapp.model.LoginResponse
 import com.example.shopingapp.model.Order
 import com.example.shopingapp.model.OrderRequest
 import com.example.shopingapp.model.Product
@@ -18,6 +21,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
+
+    @POST("api/auth/login")
+    fun login(@Body body: LoginRequest): Call<LoginResponse>
+
 
     // ------------------------- AUTH -------------------------
     @POST("api/auth/register")

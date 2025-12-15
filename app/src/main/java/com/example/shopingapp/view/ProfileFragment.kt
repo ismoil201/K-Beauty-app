@@ -31,8 +31,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userId = sessionManager.getUserId()
 
         updateUserUI()
+
+
 
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_registerFragment)
