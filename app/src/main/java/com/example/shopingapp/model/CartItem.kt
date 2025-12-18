@@ -4,5 +4,5 @@ data class CartItem(
     val id: Int,
     val product: Product,
     var quantity: Int,
-    var isSelected: Boolean = true // ✅ default checked
+    var isSelected: Boolean = false
 )

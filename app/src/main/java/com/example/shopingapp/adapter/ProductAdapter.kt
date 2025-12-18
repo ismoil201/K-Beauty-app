@@ -1,21 +1,33 @@
 package com.example.shopingapp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.shopingapp.R
 import com.example.shopingapp.databinding.ItemProductBinding
 import com.example.shopingapp.model.Product
 
 class ProductAdapter(
-    private val onClickItem: onClickItem? = null
+    private val onClickItem: (Long) -> Unit,      // ✅ Long
+    private val onLikeClick: (Product) -> Unit
 ) : RecyclerView.Adapter<ProductAdapter.ProductVh>() {
 
-    private val list = ArrayList<Product>()
+    private val list = mutableListOf<Product>()
 
     fun submitData(newList: List<Product>) {
         list.clear()
         list.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun updateFavorites(map: Map<Long, Boolean>) {
+        list.forEach { product ->
+            product.id.let { id ->
+                product.isFavorite = map[id] ?: product.isFavorite
+            }
+        }
         notifyDataSetChanged()
     }
 
@@ -24,7 +36,9 @@ class ProductAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductVh {
         val binding = ItemProductBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
         return ProductVh(binding)
     }
@@ -32,23 +46,33 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductVh, position: Int) {
         val item = list[position]
 
+        holder.binding.tvBrand.text = item.category
         holder.binding.tvName.text = item.name
-       // holder.binding.tvDesc.text = item.description
         holder.binding.tvPrice.text = "${item.price}$"
 
-        Glide.with(holder.itemView)
+        holder.binding.btnLike.setImageResource(
+            if (item.isFavorite)
+                R.drawable.heart_clicked_svg
+            else
+                R.drawable.heart_svg
+        )
+
+        holder.binding.btnLike.setOnClickListener {
+            onLikeClick(item)
+        }
+
+        Glide.with(holder.itemView.context)
             .load(item.imageUrl)
+//            .placeholder(R.drawable.placeholder) // ixtiyoriy
+//            .error(R.drawable.placeholder)
             .into(holder.binding.imgProduct)
 
-        // click for both Home + Similar items
         holder.itemView.setOnClickListener {
-            onClickItem?.onClick(item.id)
+            Log.d("CLICK", "open detail id=${item.id}")
+
+            onClickItem(item.id)   // ✅ Long
         }
     }
 
     override fun getItemCount(): Int = list.size
-}
-
-interface onClickItem {
-    fun onClick(id: Int?)
 }

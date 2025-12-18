@@ -1,29 +1,27 @@
 package com.example.shopingapp.view
 
+import FavoriteViewModel
 import SessionManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.shopingapp.GridSpacingItemDecoration
 import com.example.shopingapp.R
 import com.example.shopingapp.adapter.ProductAdapter
-import com.example.shopingapp.adapter.onClickItem
 import com.example.shopingapp.databinding.FragmentDetailBinding
-import com.example.shopingapp.model.CartAddRequest
-import com.example.shopingapp.model.CartItem
-import com.example.shopingapp.model.Order
-import com.example.shopingapp.model.OrderRequest
 import com.example.shopingapp.model.Product
+import com.example.shopingapp.model.ProductDetail
+import com.example.shopingapp.network.FavoriteResponse
+import com.example.shopingapp.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,38 +29,57 @@ import retrofit2.Response
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
-    private var productId: Int = -1
-    private var isBottomBarVisible = true
     private lateinit var sessionManager: SessionManager
+    private lateinit var favoriteVM: FavoriteViewModel
+    private lateinit var adapter: ProductAdapter
 
+    private var productId: Long = -1L
+    private var isBottomBarVisible = true   // 🔥 QAYTARDIK
 
-    // SIMILAR PRODUCTS ADAPTER (with click)
-    private val adapter = ProductAdapter(onClickItem = object : onClickItem {
-        override fun onClick(id: Int?) {
-            id?.let {
-                val bundle = Bundle()
-                bundle.putInt("productId", it)
-                findNavController().navigate(R.id.detailFragment, bundle)
-            }
-        }
-    })
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
         sessionManager = SessionManager(requireContext())
 
-        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        adapter = ProductAdapter(
+            onClickItem = { id ->
+                findNavController().navigate(
+                    R.id.action_detailFragment_self,
+                    Bundle().apply {
+                        putLong("productId", id)
+                    }
+                )
+            },
+            onLikeClick = { product ->
+                toggleFavorite(product)
+            }
+        )
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productId = arguments?.getInt("productId") ?: -1
+        // ✅ HAR DOIM SHU USUL
+        productId = requireArguments().getLong("productId")
 
-        loadProductById(productId)
-        loadSimilarProducts()
+        favoriteVM = ViewModelProvider(requireActivity())[FavoriteViewModel::class.java]
 
+        loadProduct()
+        loadSimilar()
+
+        // ❤️ Favorite observer
+        favoriteVM.favorites.observe(viewLifecycleOwner) { map ->
+            map[productId]?.let { fav ->
+                updateLikeIcon(fav)
+            }
+        }
+
+        // 🔥 BOTTOM BAR INSETS
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomBar) { v, insets ->
             val bottomInset =
                 insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
@@ -73,134 +90,106 @@ class DetailFragment : Fragment() {
 
             insets
         }
+        // 🔥 SCROLL LISTENER (ESKI KOD QAYTDI)
         binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-
-            // pastga scroll
             if (scrollY > oldScrollY && isBottomBarVisible) {
                 hideBottomBar()
                 isBottomBarVisible = false
-            }
-
-            // tepaga scroll
-            else if (scrollY < oldScrollY && !isBottomBarVisible) {
+            } else if (scrollY < oldScrollY && !isBottomBarVisible) {
                 showBottomBar()
                 isBottomBarVisible = true
             }
         }
-        binding.btnAddToCart.setOnClickListener {
-
-            if (!sessionManager.isLoggedIn()) {
-                findNavController().navigate(R.id.loginFragment)
-                return@setOnClickListener
-            }
-
-            val userId = sessionManager.getUserId()
-
-            RetrofitClient.instance.addToCart(
-                CartAddRequest(
-                    userId = userId,
-                    productId = productId,
-                    quantity = 1
-                )
-            ).enqueue(object : Callback<CartItem> {
-
-                override fun onResponse(
-                    call: Call<CartItem>,
-                    response: Response<CartItem>
-                ) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "🛒 장바구니에 담았습니다",
-                            Toast.LENGTH_SHORT
-
-                        ).show()
-                        Log.d("USER_ID", "userId=$userId" )
-
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "장바구니 실패",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Log.d("USER_ID", "userId=$userId" + response.message())
-
-                    }
-                }
-
-                override fun onFailure(call: Call<CartItem>, t: Throwable) {
-                    Toast.makeText(
-                        requireContext(),
-                        t.message ?: "Network error",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
-        }
-
-
-        binding.btnBuy.setOnClickListener {
-
-            if (!sessionManager.isLoggedIn()) {
-                findNavController().navigate(R.id.loginFragment)
-                return@setOnClickListener
-            }
-
-            val userId = sessionManager.getUserId()
-
-            RetrofitClient.instance.createOrder(
-                OrderRequest(
-                    userId = userId,
-                    address = "Seoul, Gangnam",
-                    totalAmount = binding.tvPrice.text
-                        .toString()
-                        .replace("$", "")
-                        .toDouble()
-                )
-            ).enqueue(object : Callback<Order> {
-
-                override fun onResponse(
-                    call: Call<Order>,
-                    response: Response<Order>
-                ) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "주문 완료",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        findNavController().navigate(R.id.orderFragment)
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "주문 실패",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<Order>, t: Throwable) {
-                    Toast.makeText(
-                        requireContext(),
-                        t.message ?: "Network error",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
-        }
-
-        binding.btnLike.setOnClickListener {
-            it.isSelected = !it.isSelected
-            binding.btnLike.setImageResource(
-                if (it.isSelected) R.drawable.heart_clicked_svg
-                else R.drawable.heart_svg
-            )
-        }
-
-
-
     }
+
+    private fun toggleFavorite(product: Product) {
+        if (!sessionManager.isLoggedIn()) {
+            findNavController().navigate(R.id.loginFragment)
+            return
+        }
+
+        RetrofitClient.instance(requireContext())
+            .toggleFavorite(product.id)
+            .enqueue(object : Callback<FavoriteResponse> {
+                override fun onResponse(
+                    call: Call<FavoriteResponse>,
+                    response: Response<FavoriteResponse>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        favoriteVM.setFavorite(product.id, response.body()!!.favorite)
+                    }
+                }
+
+                override fun onFailure(call: Call<FavoriteResponse>, t: Throwable) {}
+            })
+    }
+
+    private fun loadProduct() {
+        RetrofitClient.instance(requireContext())
+            .getProductDetail(productId)
+            .enqueue(object : Callback<ProductDetail> {
+                override fun onResponse(
+                    call: Call<ProductDetail>,
+                    response: Response<ProductDetail>
+                ) {
+                    val p = response.body() ?: return
+
+                    binding.tvBrand.text = p.category
+                    binding.tvName.text = p.name
+                    binding.tvDescription.text = p.description
+                    binding.tvPrice.text = "${p.price}$"
+
+                    updateLikeIcon(p.favorite)
+                    favoriteVM.setFavorite(p.id.toLong(), p.favorite)
+
+                    Glide.with(requireContext())
+                        .load(p.imageUrl)
+                        .into(binding.ivProduct)
+                }
+
+                override fun onFailure(call: Call<ProductDetail>, t: Throwable) {
+                    Log.e("DETAIL", t.message ?: "error")
+                }
+            })
+    }
+
+    private fun loadSimilar() {
+        binding.rvSimilar.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.rvSimilar.adapter = adapter
+
+        binding.rvSimilar.addItemDecoration(
+            GridSpacingItemDecoration(
+                3,
+                resources.getDimensionPixelSize(R.dimen.grid_spacing),
+                false
+            )
+        )
+
+        RetrofitClient.instance(requireContext())
+            .getAllProducts()
+            .enqueue(object : Callback<List<Product>> {
+                override fun onResponse(
+                    call: Call<List<Product>>,
+                    response: Response<List<Product>>
+                ) {
+                    response.body()?.let {
+                        adapter.submitData(it)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Product>>, t: Throwable) {}
+            })
+    }
+
+    private fun updateLikeIcon(isFavorite: Boolean) {
+        binding.btnLike.setImageResource(
+            if (isFavorite)
+                R.drawable.heart_clicked_svg
+            else
+                R.drawable.heart_svg
+        )
+    }
+
     private fun hideBottomBar() {
         binding.bottomBar.animate()
             .translationY(binding.bottomBar.height.toFloat())
@@ -213,61 +202,5 @@ class DetailFragment : Fragment() {
             .translationY(0f)
             .setDuration(200)
             .start()
-    }
-
-
-    private fun loadProductById(id: Int) {
-        RetrofitClient.instance.getProductById(id).enqueue(object : Callback<Product> {
-            override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                if (response.isSuccessful) {
-                    val p = response.body()!!
-
-                    binding.tvName.text = p.name
-                    binding.tvDescription.text = p.description
-                    binding.tvPrice.text = "${p.price}$"
-
-                    Glide.with(requireContext())
-                        .load(p.imageUrl)
-                        .into(binding.ivProduct)
-                }
-            }
-
-            override fun onFailure(call: Call<Product>, t: Throwable) {
-                Log.d("DETAIL", "Error: ${t.message}")
-            }
-        })
-    }
-
-    private fun loadSimilarProducts() {
-
-        binding.rvSimilar.layoutManager = GridLayoutManager(requireContext(), 3)
-        binding.rvSimilar.adapter = adapter
-        binding.rvSimilar.setPadding(
-            resources.getDimensionPixelSize(R.dimen.grid_side_padding),
-            0,
-            resources.getDimensionPixelSize(R.dimen.grid_side_padding),
-            0
-        )
-
-        binding.rvSimilar.clipToPadding = false
-
-        binding.rvSimilar.addItemDecoration(
-            GridSpacingItemDecoration(
-                spanCount = 3,
-                spacing = resources.getDimensionPixelSize(R.dimen.grid_spacing),
-                includeEdge = false
-            )
-        )
-        RetrofitClient.instance.getAllProducts().enqueue(object : Callback<List<Product>> {
-            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-                if (response.isSuccessful) {
-                    adapter.submitData(response.body()!!)
-                }
-            }
-
-            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-                Log.d("DETAIL", "Error: ${t.message}")
-            }
-        })
     }
 }

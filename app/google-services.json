@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1075730526246",
+    "project_id": "cosmetic-app-75fb9",
+    "storage_bucket": "cosmetic-app-75fb9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075730526246:android:eacd3d766694501dac36e7",
+        "android_client_info": {
+          "package_name": "com.example.shopingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075730526246-blb6j75opci8lc6718nvf66h8q6nncih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlVShpDthzHX-E0aoVxiFBpzwOuYyaZck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075730526246-blb6j75opci8lc6718nvf66h8q6nncih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

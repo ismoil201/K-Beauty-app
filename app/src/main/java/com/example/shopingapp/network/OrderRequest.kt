@@ -1,4 +1,5 @@
-package com.example.shopingapp.model
+package com.example.shopingapp.network
+
 data class OrderRequest(
     val userId: Int,
     val address: String,

@@ -1,4 +1,5 @@
 import android.content.Context
+
 class SessionManager(context: Context) {
 
     private val prefs =
@@ -11,14 +12,16 @@ class SessionManager(context: Context) {
         email: String?
     ) {
         prefs.edit()
-            .putString("token", token ?: "")
+            .putString("token", token)
             .putInt("user_id", userId)
-            .putString("name", name ?: "")
-            .putString("email", email ?: "")
+            .putString("name", name)
+            .putString("email", email)
             .putBoolean("is_logged_in", true)
             .apply()
     }
 
+    fun getToken(): String? =
+        prefs.getString("token", null)
 
     fun isLoggedIn(): Boolean =
         prefs.getBoolean("is_logged_in", false)

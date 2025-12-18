@@ -33,7 +33,8 @@
 
         <argument
             android:name="productId"
-            app:argType="integer" />
+            app:argType="long"
+            app:nullable="false" />
 
         <action
             android:id="@+id/action_detailFragment_self"

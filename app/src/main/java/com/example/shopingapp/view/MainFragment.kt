@@ -53,15 +53,16 @@ class MainFragment : Fragment() {
         // 🔥 MUHIM QISM — DESTINATION LISTENER
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.detailFragment -> {
-                    // ❌ Detail page → BottomNav yo‘q
+                R.id.detailFragment,
+                R.id.loginFragment,
+                R.id.registerFragment -> {
                     binding.mainBottomNavigation.visibility = View.GONE
                 }
                 else -> {
-                    // ✅ Boshqa page’lar → BottomNav bor
                     binding.mainBottomNavigation.visibility = View.VISIBLE
                 }
             }
+
         }
 
         // Drawer menu

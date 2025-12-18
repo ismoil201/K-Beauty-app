@@ -27,7 +27,7 @@ class OrderProductAdapter(
 
         b.tvBrand.text = item.product.category
         b.tvProductName.text = item.product.name
-        b.tvOption.text = item.product.description
+        b.tvOption.text = item.product.brand
         b.tvQty.text = item.quantity.toString()
         b.tvFinalPrice.text =
             "${item.product.price * item.quantity}원"

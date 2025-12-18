@@ -12,9 +12,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.example.shopingapp.R
 import com.example.shopingapp.databinding.FragmentRegisterBinding
-import com.example.shopingapp.model.RegisterRequest
-import com.example.shopingapp.model.SimpleResponse
-import com.example.shopingapp.network.AuthRetrofitClient
+import com.example.shopingapp.network.RegisterRequest
+import com.example.shopingapp.network.RetrofitClient
+import com.example.shopingapp.network.SimpleResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,7 +86,7 @@ class RegisterFragment : Fragment() {
             return
         }
 
-        RetrofitClient.instance.register(
+        RetrofitClient.instance(requireContext()).register(
             RegisterRequest(
                 email = email,
                 password = password,

@@ -13,11 +13,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.example.shopingapp.R
 import com.example.shopingapp.databinding.FragmentLoginBinding
-import com.example.shopingapp.model.AuthResponse
-import com.example.shopingapp.model.LoginRequest
+import com.example.shopingapp.network.AuthResponse
+import com.example.shopingapp.network.LoginRequest
 import com.example.shopingapp.model.LoginResponse
 import com.example.shopingapp.model.User
-import com.example.shopingapp.network.AuthRetrofitClient
+import com.example.shopingapp.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,47 +75,40 @@ class LoginFragment : Fragment() {
             toast("Fill all fields")
             return
         }
-        RetrofitClient.instance.login(
-            LoginRequest(email, password)
-        ).enqueue(object : Callback<LoginResponse> {
 
-            override fun onResponse(
-                call: Call<LoginResponse>,
-                response: Response<LoginResponse>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
+        RetrofitClient.instance(requireContext())
+            .login(LoginRequest(email, password))
+            .enqueue(object : Callback<LoginResponse> {
 
-                    val user = response.body()!!
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
 
-                    sessionManager.saveLogin(
-                        token = "NO_TOKEN_YET", // hozircha
-                        userId = user.id,       // 🔥 ENDI NULL EMAS
-                        name = user.fullName ?: "User",// fallback
-                        email = user.email
-                    )
+                        val user = response.body()!!
 
-                    Log.d("LOGIN", "saved userId=${sessionManager.getUserId()} +id=${user.id}, name=${user.fullName}, email=${user.email}"
-                    )
+                        sessionManager.saveLogin(
+                            token = user.token,   // 🔥 MUHIM
+                            userId = user.id,
+                            name = user.fullName,
+                            email = user.email
+                        )
 
+                        toast("Login success")
 
+                        findNavController()
+                            .navigate(R.id.profileFragment)
 
-
-
-                    toast("Login success")
-
-                    findNavController().navigate(
-                        R.id.profileFragment
-                    )
-                } else {
-                    toast("Invalid email or password")
+                    } else {
+                        toast("Invalid email or password")
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                toast(t.message ?: "Network error")
-            }
-        })
-
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    toast(t.message ?: "Network error")
+                }
+            })
     }
 
     private fun toast(msg: String) {
