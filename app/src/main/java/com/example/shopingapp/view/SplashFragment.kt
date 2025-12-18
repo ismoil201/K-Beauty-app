@@ -33,18 +33,31 @@ class SplashFragment : Fragment() {
 
     }
 
-    private fun checkUserIsLogged(){
+    private fun checkUserIsLogged() {
 
-        if(sessionManager.isLoggedIn()){
-            Handler(Looper.getMainLooper()).postDelayed({
-                findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
+        val navController = findNavController()
 
-            },1000)
-        }else{
-            Handler(Looper.getMainLooper()).postDelayed({
-                findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
-            },2000)
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            if (sessionManager.isLoggedIn()) {
+                navController.navigate(
+                    R.id.action_splashFragment_to_mainFragment,
+                    null,
+                    androidx.navigation.NavOptions.Builder()
+                        .setPopUpTo(R.id.splashFragment, true) // 🔥 MUHIM
+                        .build()
+                )
+            } else {
+                navController.navigate(
+                    R.id.action_splashFragment_to_onboardingFragment,
+                    null,
+                    androidx.navigation.NavOptions.Builder()
+                        .setPopUpTo(R.id.splashFragment, true)
+                        .build()
+                )
+            }
+
+        }, 1000)
     }
 
 

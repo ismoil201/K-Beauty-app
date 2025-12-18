@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1075730526246-rsvf66480g0bt8hf22ku4q51a8vlu8cj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shopingapp",
+            "certificate_hash": "d7ca8f66a50dabb7ac0e224c57e1509db7f63cc1"
+          }
+        },
+        {
           "client_id": "1075730526246-blb6j75opci8lc6718nvf66h8q6nncih.apps.googleusercontent.com",
           "client_type": 3
         }

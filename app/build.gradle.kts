@@ -42,6 +42,12 @@ android {
 }
 
 dependencies {
+    // 🔥 Firebase BOM
+
+    // 🔐 Firebase Auth
+
+    // 🔑 Google Sign In
+    implementation ("com.google.android.gms:play-services-auth:21.1.0")
 
     // ✅ TO‘G‘RI Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))

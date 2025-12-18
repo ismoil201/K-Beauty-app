@@ -7,13 +7,13 @@ class SessionManager(context: Context) {
 
     fun saveLogin(
         token: String,
-        userId: Int,
+        userId: Long,
         name: String?,
         email: String?
     ) {
         prefs.edit()
             .putString("token", token)
-            .putInt("user_id", userId)
+            .putLong("user_id", userId)
             .putString("name", name)
             .putString("email", email)
             .putBoolean("is_logged_in", true)
@@ -26,8 +26,8 @@ class SessionManager(context: Context) {
     fun isLoggedIn(): Boolean =
         prefs.getBoolean("is_logged_in", false)
 
-    fun getUserId(): Int =
-        prefs.getInt("user_id", -1)
+    fun getUserId(): Long =
+        prefs.getLong("user_id", -1)
 
     fun getName(): String? = prefs.getString("name", null)
     fun getEmail(): String? = prefs.getString("email", null)

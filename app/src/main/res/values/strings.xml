@@ -2,10 +2,7 @@
     <string name="app_name">YUNA</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <style name="ActiveIndicator">
-        <item name="android:width">60dp</item>
-        <item name="android:height">36dp</item>
-        <item name="android:color">@color/pink</item>
-        <item name="android:shape">oval</item>
-    </style>
+    <!-- 🔥 FIREBASE GOOGLE LOGIN -->
+    <string
+        name="default_web_client_id">cosmetic-app-75fb9.firebaseapp.com</string>
 </resources>

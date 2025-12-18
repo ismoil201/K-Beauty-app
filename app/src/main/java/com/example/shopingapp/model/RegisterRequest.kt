@@ -1,8 +1,8 @@
 package com.example.shopingapp.model
 
-data class LoginResponse(
-    val id: Long,
+data class RegisterRequest(
     val email: String,
+    val password: String,
     val fullName: String,
-    val token: String
+    val phone: String? = null
 )
