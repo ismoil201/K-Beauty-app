@@ -1,4 +1,4 @@
-package com.example.shopingapp.viewmodel
+package com.example.shopingapp.ui.home
 
 import android.app.Application
 import android.util.Log

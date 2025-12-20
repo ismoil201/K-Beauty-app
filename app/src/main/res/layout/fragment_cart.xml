@@ -9,9 +9,11 @@
 
     <!-- ================= CONTENT ================= -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="64dp"
+        android:paddingBottom="44dp"
         android:fillViewport="true">
 
 
@@ -161,20 +163,22 @@
 
     <!-- ================= BOTTOM BUTTON ================= -->
     <LinearLayout
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
-        android:background="#000000"
+        android:background="@color/pink"
         android:gravity="center"
         android:elevation="10dp">
 
         <TextView
+            android:id="@+id/btnOrder"
+            android:padding="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnOrder"
-            android:text="127,150원 주문하기"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
+            android:text="0원 주문하기"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:fontFamily="@font/montserrat_bold"/>
     </LinearLayout>
 

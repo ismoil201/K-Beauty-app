@@ -67,9 +67,9 @@ class OrderProductAdapter(
         if (index != -1) {
             list.removeAt(index)
             notifyItemRemoved(index)
-            notifyItemRangeChanged(index, list.size)
         }
     }
+
 
     override fun getItemCount(): Int = list.size
 

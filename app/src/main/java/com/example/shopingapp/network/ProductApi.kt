@@ -1,6 +1,7 @@
 package com.example.shopingapp.network
 
 import com.example.shopingapp.model.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -50,7 +51,7 @@ interface ApiService {
     @POST("/api/cart")
     fun addToCart(
         @Body body: CartAddRequest
-    ): Call<SimpleResponse>
+    ): Call<ResponseBody>
 
     @GET("/api/cart")
     fun getMyCart(): Call<List<CartItem>>
@@ -59,12 +60,12 @@ interface ApiService {
     fun updateCartQuantity(
         @Path("cartItemId") cartItemId: Long,
         @Query("quantity") quantity: Int
-    ): Call<SimpleResponse>
+    ): Call<ResponseBody>
 
     @DELETE("/api/cart/{cartItemId}")
     fun deleteCartItem(
         @Path("cartItemId") cartItemId: Long
-    ): Call<SimpleResponse>
+    ): Call<ResponseBody>
 
 
     // ================= ORDERS (JWT) =================

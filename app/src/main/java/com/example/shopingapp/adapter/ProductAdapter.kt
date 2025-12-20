@@ -49,6 +49,9 @@ class ProductAdapter(
         holder.binding.tvBrand.text = item.category
         holder.binding.tvName.text = item.name
         holder.binding.tvPrice.text = "${item.price}$"
+        if(item.isFavorite){
+            holder.binding.btnLike.setImageResource(R.drawable.heart_clicked_svg)
+        }
 
         holder.binding.btnLike.setImageResource(
             if (item.isFavorite)

@@ -18,10 +18,13 @@ import com.example.shopingapp.GridSpacingItemDecoration
 import com.example.shopingapp.R
 import com.example.shopingapp.adapter.ProductAdapter
 import com.example.shopingapp.databinding.FragmentDetailBinding
+import com.example.shopingapp.model.CartAddRequest
 import com.example.shopingapp.model.Product
 import com.example.shopingapp.model.ProductDetail
+import com.example.shopingapp.model.SimpleResponse
 import com.example.shopingapp.network.FavoriteResponse
 import com.example.shopingapp.network.RetrofitClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +37,7 @@ class DetailFragment : Fragment() {
     private lateinit var adapter: ProductAdapter
 
     private var productId: Long = -1L
-    private var isBottomBarVisible = true   // 🔥 QAYTARDIK
+    private var isBottomBarVisible = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,13 +51,11 @@ class DetailFragment : Fragment() {
             onClickItem = { id ->
                 findNavController().navigate(
                     R.id.action_detailFragment_self,
-                    Bundle().apply {
-                        putLong("productId", id)
-                    }
+                    Bundle().apply { putLong("productId", id) }
                 )
             },
             onLikeClick = { product ->
-                toggleFavorite(product)
+                toggleFavorite(product.id)
             }
         )
 
@@ -64,20 +65,25 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ✅ HAR DOIM SHU USUL
         productId = requireArguments().getLong("productId")
-
         favoriteVM = ViewModelProvider(requireActivity())[FavoriteViewModel::class.java]
+
+        // 🔥 DETAIL LIKE BUTTON (PASTKI ❤️)
+        binding.btnLike.setOnClickListener {
+            toggleFavorite(productId)
+        }
+
+        // 🔥 AVVAL VIEWMODEL HOLATINI KO‘RSAT
+        updateLikeIcon(favoriteVM.isFavorite(productId))
+
+        // 🔥 FAVORITE OBSERVER (YAGONA MANBA)
+        favoriteVM.favorites.observe(viewLifecycleOwner) { map ->
+            updateLikeIcon(map[productId] ?: false)
+            adapter.updateFavorites(map) // similar list uchun ham
+        }
 
         loadProduct()
         loadSimilar()
-
-        // ❤️ Favorite observer
-        favoriteVM.favorites.observe(viewLifecycleOwner) { map ->
-            map[productId]?.let { fav ->
-                updateLikeIcon(fav)
-            }
-        }
 
         // 🔥 BOTTOM BAR INSETS
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomBar) { v, insets ->
@@ -87,10 +93,10 @@ class DetailFragment : Fragment() {
             val params = v.layoutParams as ViewGroup.MarginLayoutParams
             params.bottomMargin = bottomInset
             v.layoutParams = params
-
             insets
         }
-        // 🔥 SCROLL LISTENER (ESKI KOD QAYTDI)
+
+        // 🔥 SCROLL LISTENER
         binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
             if (scrollY > oldScrollY && isBottomBarVisible) {
                 hideBottomBar()
@@ -100,23 +106,88 @@ class DetailFragment : Fragment() {
                 isBottomBarVisible = true
             }
         }
+
+
+        binding.btnBuy.setOnClickListener {
+            if (!sessionManager.isLoggedIn()) {
+                findNavController().navigate(R.id.loginFragment)
+                return@setOnClickListener
+            }
+        }
+        binding.btnAddToCart.setOnClickListener {
+
+            if (!sessionManager.isLoggedIn()) {
+                findNavController().navigate(R.id.loginFragment)
+                return@setOnClickListener
+            }
+
+            addToCart()
+        }
+
+
     }
 
-    private fun toggleFavorite(product: Product) {
+    private fun addToCart() {
+
+        val request = CartAddRequest(
+            productId = productId,
+            quantity = 1
+        )
+
+        RetrofitClient.instance(requireContext())
+            .addToCart(request)
+            .enqueue(object : Callback<ResponseBody> {
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+
+                        // 🔥 BACKEND RESPONSE’NI O‘QIMAYMIZ
+                        showToast("🛒 Savatga qo‘shildi")
+
+                    } else {
+                        showToast("Xatolik: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    showToast("Internet xatosi")
+                }
+            })
+    }
+
+
+    private fun showToast(text: String) {
+        android.widget.Toast
+            .makeText(requireContext(), text, android.widget.Toast.LENGTH_SHORT)
+            .show()
+    }
+
+
+
+    // ❤️ TOGGLE FAVORITE (BARCHA JOY UCHUN)
+    private fun toggleFavorite(productId: Long) {
+
         if (!sessionManager.isLoggedIn()) {
             findNavController().navigate(R.id.loginFragment)
             return
         }
 
         RetrofitClient.instance(requireContext())
-            .toggleFavorite(product.id)
+            .toggleFavorite(productId)
             .enqueue(object : Callback<FavoriteResponse> {
+
                 override fun onResponse(
                     call: Call<FavoriteResponse>,
                     response: Response<FavoriteResponse>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        favoriteVM.setFavorite(product.id, response.body()!!.favorite)
+                        favoriteVM.setFavorite(
+                            productId,
+                            response.body()!!.favorite
+                        )
                     }
                 }
 
@@ -124,6 +195,7 @@ class DetailFragment : Fragment() {
             })
     }
 
+    // 📦 PRODUCT DETAIL (LIKE STATEGA TEGMAYDI!)
     private fun loadProduct() {
         RetrofitClient.instance(requireContext())
             .getProductDetail(productId)
@@ -139,9 +211,6 @@ class DetailFragment : Fragment() {
                     binding.tvDescription.text = p.description
                     binding.tvPrice.text = "${p.price}$"
 
-                    updateLikeIcon(p.favorite)
-                    favoriteVM.setFavorite(p.id.toLong(), p.favorite)
-
                     Glide.with(requireContext())
                         .load(p.imageUrl)
                         .into(binding.ivProduct)
@@ -153,6 +222,7 @@ class DetailFragment : Fragment() {
             })
     }
 
+    // 🔁 SIMILAR PRODUCTS
     private fun loadSimilar() {
         binding.rvSimilar.layoutManager = GridLayoutManager(requireContext(), 3)
         binding.rvSimilar.adapter = adapter
@@ -174,6 +244,9 @@ class DetailFragment : Fragment() {
                 ) {
                     response.body()?.let {
                         adapter.submitData(it)
+                        favoriteVM.favorites.value?.let { fav ->
+                            adapter.updateFavorites(fav)
+                        }
                     }
                 }
 
@@ -181,6 +254,7 @@ class DetailFragment : Fragment() {
             })
     }
 
+    // ❤️ ICON UPDATE
     private fun updateLikeIcon(isFavorite: Boolean) {
         binding.btnLike.setImageResource(
             if (isFavorite)

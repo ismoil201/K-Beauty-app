@@ -1,4 +1,4 @@
-package com.example.shopingapp.view
+package com.example.shopingapp.ui.home
 
 import FavoriteViewModel
 import SessionManager
@@ -17,7 +17,6 @@ import com.example.shopingapp.databinding.FragmentHomeBinding
 import com.example.shopingapp.model.Product
 import com.example.shopingapp.network.FavoriteResponse
 import com.example.shopingapp.network.RetrofitClient
-import com.example.shopingapp.viewmodel.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,10 +54,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.rvProducts.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
-        // ✅ ViewModels
         favoriteVM = ViewModelProvider(requireActivity())[FavoriteViewModel::class.java]
 
         viewModel = ViewModelProvider(
@@ -66,7 +65,7 @@ class HomeFragment : Fragment() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         )[HomeViewModel::class.java]
 
-        // ✅ RecyclerView
+        // RecyclerView
         binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 3)
         binding.rvProducts.adapter = adapter
 
@@ -77,22 +76,23 @@ class HomeFragment : Fragment() {
                 includeEdge = false
             )
         )
+        // 🔥 LOAD
+        loadFavorites()
+        viewModel.loadProducts()
 
-        // ✅ Observers
+        // 🔥 Favorites observer
         favoriteVM.favorites.observe(viewLifecycleOwner) {
             adapter.updateFavorites(it)
         }
 
-        viewModel.products.observe(viewLifecycleOwner) {
+        // 🔥 Products observer
+        viewModel.products.observe(viewLifecycleOwner) { products ->
             binding.progressBar.visibility = View.GONE
-            binding.rvProducts.visibility = View.VISIBLE   // 🔥 SHU YO‘Q EDI
-            adapter.submitData(it)
+            binding.rvProducts.visibility = View.VISIBLE
+            adapter.submitData(products)
         }
 
 
-        // ✅ Load data
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.loadProducts()
     }
 
     private fun toggleFavorite(product: Product) {
@@ -122,4 +122,27 @@ class HomeFragment : Fragment() {
                 override fun onFailure(call: Call<FavoriteResponse>, t: Throwable) {}
             })
     }
+
+    private fun loadFavorites() {
+
+        if (!sessionManager.isLoggedIn()) return
+
+        RetrofitClient
+            .instance(requireContext())
+            .getMyFavorites()
+            .enqueue(object : Callback<List<Product>> {
+
+                override fun onResponse(
+                    call: Call<List<Product>>,
+                    response: Response<List<Product>>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        favoriteVM.setFavoritesFromApi(response.body()!!)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Product>>, t: Throwable) {}
+            })
+    }
+
 }

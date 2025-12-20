@@ -9,7 +9,7 @@
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     android:paddingTop="32dp"
-    tools:context=".view.RegisterFragment">
+    tools:context=".ui.register.RegisterFragment">
 
     <!-- TITLE -->
     <TextView
@@ -103,6 +103,31 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- PASSWORD -->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01:00"
+        android:textSize="13sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tilConfirCode"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resend code"
+        android:textSize="13sp"
+        android:textColor="@color/pink"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:alpha="0.4"
+        app:layout_constraintTop_toBottomOf="@id/tilConfirCode"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <!-- REGISTER BUTTON -->
     <com.google.android.material.button.MaterialButton
