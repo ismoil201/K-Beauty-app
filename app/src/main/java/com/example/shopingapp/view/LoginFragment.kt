@@ -157,7 +157,7 @@ class LoginFragment : Fragment() {
 
                         if (isAdded) {
                             findNavController().navigate(
-                                R.id.action_loginFragment_to_homeFragment
+                                R.id.action_loginFragment_to_homeFragment // men qoshdim
                             )
                         }
 
@@ -256,7 +256,7 @@ class LoginFragment : Fragment() {
                             email = user.email
                         )
 
-                        findNavController().navigate(R.id.profileFragment)
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment) // men qoshdim
 
                     } else {
                         toast("Backend login failed")

@@ -13,12 +13,13 @@ class SessionManager(context: Context) {
     ) {
         prefs.edit()
             .putString("token", token)
-            .putLong("user_id", userId)
+            .putLong("user_id", userId)   // 👈 Long qilib saqlayapsan
             .putString("name", name)
             .putString("email", email)
             .putBoolean("is_logged_in", true)
             .apply()
     }
+
 
     fun getToken(): String? =
         prefs.getString("token", null)

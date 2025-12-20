@@ -32,31 +32,11 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var sessionManager: SessionManager
-
-    // Firebase
     private lateinit var firebaseAuth: FirebaseAuth
 
-    // Google
     private lateinit var googleClient: GoogleSignInClient
-
-    // Phone
-    private lateinit var verificationId: String
-
-    // =========================
-    // GOOGLE RESULT LAUNCHER
-    // =========================
-    private val googleLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                try {
-                    val account = task.getResult(ApiException::class.java)
-                    firebaseAuthWithGoogle(account.idToken!!)
-                } catch (e: Exception) {
-                    toast("Google register failed")
-                }
-            }
-        }
+    private var verificationId: String? = null
+    private var isCodeSent = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +44,7 @@ class RegisterFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // 🔥 MUHIM
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
@@ -81,33 +61,19 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        // ✅ Keyboard / Insets
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(
-                v.paddingLeft,
-                v.paddingTop,
-                v.paddingRight,
-                ime.bottom.coerceAtLeast(systemBars.bottom)
-            )
-            insets
+        binding.btnRegister.setOnClickListener {
+            if (!isCodeSent) {
+                sendSmsCode()
+            } else {
+                verifySmsCode()
+            }
         }
-
-        // =========================
-        // CLICK LISTENERS
-        // =========================
-
-        binding.btnRegister.setOnClickListener { registerEmail() }
 
         binding.btnGoogle.setOnClickListener {
-            googleLauncher.launch(googleClient.signInIntent)
-        }
-
-        binding.btnPhone.setOnClickListener {
-            startPhoneAuth("+998901234567") // 🔧 test raqam
+            googleClient.signOut().addOnCompleteListener {
+                googleLauncher.launch(googleClient.signInIntent)
+            }
         }
 
         binding.tvLogin.setOnClickListener {
@@ -118,55 +84,71 @@ class RegisterFragment : Fragment() {
     }
 
     // =========================
-    // EMAIL REGISTER
+    // SEND SMS
     // =========================
-    private fun registerEmail() {
+    private fun sendSmsCode() {
 
-        val fullName = binding.tilUserName.editText?.text.toString().trim()
-        val email = binding.tilEmail.editText?.text.toString().trim()
-        val password = binding.tilPassword.editText?.text.toString()
-        val confirm = binding.tilConfirmPassword.editText?.text.toString()
+        val phone = binding.tilPhoneNumber.editText?.text.toString().trim()
 
-        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            toast("Fill all fields")
+        if (phone.isEmpty()) {
+            toast("Enter phone number")
             return
         }
 
-        if (password != confirm) {
-            toast("Passwords do not match")
-            return
-        }
-
-        RetrofitClient.instance(requireContext())
-            .register(RegisterRequest(email, password, fullName))
-            .enqueue(object : Callback<SimpleResponse> {
-
-                override fun onResponse(
-                    call: Call<SimpleResponse>,
-                    response: Response<SimpleResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        toast("Register success")
-                        findNavController().navigate(
-                            R.id.action_registerFragment_to_loginFragment
-                        )
-                    } else {
-                        toast("Register failed")
-                    }
-                }
-
-                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                    toast(t.message ?: "Error")
-                }
-            })
+        PhoneAuthProvider.verifyPhoneNumber(
+            PhoneAuthOptions.newBuilder(firebaseAuth)
+                .setPhoneNumber(phone)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(requireActivity())
+                .setCallbacks(phoneCallbacks)
+                .build()
+        )
     }
 
-    // =========================
-    // GOOGLE REGISTER
-    // =========================
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    private val phoneCallbacks =
+        object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                signInWithPhoneCredential(credential)
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                toast(e.message ?: "SMS failed")
+            }
+
+            override fun onCodeSent(
+                id: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                verificationId = id
+                isCodeSent = true
+
+                binding.tilConfirCode.visibility = View.VISIBLE
+                binding.btnRegister.text = "Verify & Register"
+
+                toast("SMS sent")
+            }
+        }
+
+    // =========================
+    // VERIFY SMS CODE
+    // =========================
+    private fun verifySmsCode() {
+
+        val code = binding.tilConfirCode.editText?.text.toString().trim()
+
+        if (code.isEmpty() || verificationId == null) {
+            toast("Enter SMS code")
+            return
+        }
+
+        val credential =
+            PhoneAuthProvider.getCredential(verificationId!!, code)
+
+        signInWithPhoneCredential(credential)
+    }
+
+    private fun signInWithPhoneCredential(credential: PhoneAuthCredential) {
 
         firebaseAuth.signInWithCredential(credential)
             .addOnSuccessListener {
@@ -176,50 +158,12 @@ class RegisterFragment : Fragment() {
                     }
             }
             .addOnFailureListener {
-                toast("Firebase auth failed")
+                toast("Verification failed")
             }
     }
 
     // =========================
-    // PHONE REGISTER
-    // =========================
-    private fun startPhoneAuth(phone: String) {
-
-        val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-            .setPhoneNumber(phone)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(requireActivity())
-            .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-                override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                    firebaseAuth.signInWithCredential(credential)
-                        .addOnSuccessListener {
-                            it.user?.getIdToken(true)
-                                ?.addOnSuccessListener { res ->
-                                    sendTokenToBackend(res.token!!)
-                                }
-                        }
-                }
-
-                override fun onVerificationFailed(e: FirebaseException) {
-                    toast(e.message ?: "SMS failed")
-                }
-
-                override fun onCodeSent(
-                    id: String,
-                    token: PhoneAuthProvider.ForceResendingToken
-                ) {
-                    verificationId = id
-                    toast("SMS sent")
-                }
-            })
-            .build()
-
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
-
-    // =========================
-    // BACKEND FIREBASE REGISTER
+    // BACKEND REGISTER
     // =========================
     private fun sendTokenToBackend(idToken: String) {
 
@@ -242,9 +186,9 @@ class RegisterFragment : Fragment() {
                             email = user.email
                         )
 
-                        // 🔥 Register bo‘ldi → ichkariga kiradi
-                        findNavController().navigate(R.id.profileFragment)
-
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_homeFragment
+                        )
                     } else {
                         toast("Backend register failed")
                     }
@@ -255,6 +199,31 @@ class RegisterFragment : Fragment() {
                 }
             })
     }
+
+    // =========================
+    // GOOGLE REGISTER
+    // =========================
+    private val googleLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)
+                    val credential =
+                        GoogleAuthProvider.getCredential(account.idToken, null)
+
+                    firebaseAuth.signInWithCredential(credential)
+                        .addOnSuccessListener {
+                            it.user?.getIdToken(true)
+                                ?.addOnSuccessListener { token ->
+                                    sendTokenToBackend(token.token!!)
+                                }
+                        }
+                } catch (e: Exception) {
+                    toast("Google register failed")
+                }
+            }
+        }
 
     private fun toast(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
