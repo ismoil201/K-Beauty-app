@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shopingapp.GridSpacingItemDecoration
 import com.example.shopingapp.R
 import com.example.shopingapp.adapter.ProductAdapter
+import com.example.shopingapp.adapter.ShimmerAdapter
 import com.example.shopingapp.databinding.FragmentHomeBinding
 import com.example.shopingapp.model.Product
 import com.example.shopingapp.network.FavoriteResponse
@@ -22,6 +23,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
+
+    private lateinit var shimmerAdapter: ShimmerAdapter
+
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: ProductAdapter
@@ -54,9 +58,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.rvProducts.visibility = View.GONE
-        binding.progressBar.visibility = View.VISIBLE
+        binding.rvShimmer.visibility = View.VISIBLE
+
+
 
         favoriteVM = ViewModelProvider(requireActivity())[FavoriteViewModel::class.java]
 
@@ -77,6 +82,7 @@ class HomeFragment : Fragment() {
             )
         )
         // 🔥 LOAD
+        setupShimmer()
         loadFavorites()
         viewModel.loadProducts()
 
@@ -87,13 +93,25 @@ class HomeFragment : Fragment() {
 
         // 🔥 Products observer
         viewModel.products.observe(viewLifecycleOwner) { products ->
-            binding.progressBar.visibility = View.GONE
+            binding.rvShimmer.visibility = View.GONE
+
             binding.rvProducts.visibility = View.VISIBLE
             adapter.submitData(products)
         }
 
 
+
     }
+
+    private fun setupShimmer() {
+        shimmerAdapter = ShimmerAdapter()
+
+        binding.rvShimmer.layoutManager =
+            GridLayoutManager(requireContext(), 3)
+
+        binding.rvShimmer.adapter = shimmerAdapter
+    }
+
 
     private fun toggleFavorite(product: Product) {
 

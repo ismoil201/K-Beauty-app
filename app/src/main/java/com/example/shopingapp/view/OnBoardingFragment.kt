@@ -58,18 +58,20 @@ class OnboardingFragment : Fragment() {
         val data = listOf(
             OnboardingData(
                 R.drawable.splash11,
-                "Various Collections Of The Latest Products",
-                "Urna amet, suspendisse ullamcorper ac elit diam facilisis cursus vestibulum."
-            ),
+                "Koreyadan eng trend beauty mahsulotlar",
+                "Original va sifatli kosmetikalar. Minglab ayollar tanlagan Koreya go‘zalligi endi siz uchun."
+            )
+            ,
             OnboardingData(
                 R.drawable.splash22,
-                "Complete Collection Of Colors And Sizes",
-                "Urna amet, suspendisse ullamcorper ac elit diam facilisis cursus vestibulum."
-            ),
+                "Har bir teri turi uchun mukammal tanlov",
+                "Yuz, tana va bo‘yanish uchun ehtiyotkorlik bilan tanlangan mahsulotlar. Sifat kafolatlangan."
+            )
+            ,
             OnboardingData(
                 R.drawable.splash5,
-                "Find The Most Suitable Outfit For You",
-                "Urna amet, suspendisse ullamcorper ac elit diam facilisis cursus vestibulum."
+                "O‘zingizni yanada chiroyli his qiling",
+                "Go‘zallik — bu parvarishdan boshlanadi. Sizga mos mahsulotlar bilan ishonch bilan porlang."
             )
         )
 

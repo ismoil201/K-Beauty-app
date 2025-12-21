@@ -6,9 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopingapp.databinding.ItemCartProductBinding
 import com.example.shopingapp.model.CartItem
+import com.example.shopingapp.model.Product
+
 class OrderProductAdapter(
     private val list: MutableList<CartItem> = mutableListOf(),
-    private val listener: CartActionListener
+    private val listener: CartActionListener,
+    private val onProductClick: (Product) -> Unit,
+    private val onProductDelete: (Product) -> Unit
+
 ) : RecyclerView.Adapter<OrderProductAdapter.VH>() {
 
     inner class VH(val b: ItemCartProductBinding) :
@@ -25,7 +30,7 @@ class OrderProductAdapter(
         val item = list[position]
         val b = holder.b
 
-        b.tvBrand.text = item.product.category
+        //b.tv.text = item.product.category
         b.tvProductName.text = item.product.name
         b.tvOption.text = item.product.brand
         b.tvQty.text = item.quantity.toString()
@@ -44,11 +49,28 @@ class OrderProductAdapter(
             item.isSelected = checked
             listener.onSelectionChanged()
         }
+        b.imgProduct.setOnClickListener {
+            onProductClick(item.product)
+        }
+        b.tvProductName.setOnClickListener {
+
+            onProductClick(item.product)
+        }
+        b.tvOption.setOnClickListener {
+            onProductClick(item.product)
+        }
+
+        b.btnCancel.setOnClickListener {
+            b.btnCancel.isEnabled = false
+            onProductDelete(item.product)
+        }
+
+
 
         // ➕
         b.btnPlus.setOnClickListener {
             item.quantity++
-            notifyItemChanged(position)
+            notifyItemChanged(holder.bindingAdapterPosition)
             listener.onQuantityChanged(item)
         }
 
@@ -56,7 +78,7 @@ class OrderProductAdapter(
         b.btnMinus.setOnClickListener {
             if (item.quantity > 1) {
                 item.quantity--
-                notifyItemChanged(position)
+                notifyItemChanged(holder.bindingAdapterPosition)
                 listener.onQuantityChanged(item)
             }
         }
@@ -68,6 +90,11 @@ class OrderProductAdapter(
             list.removeAt(index)
             notifyItemRemoved(index)
         }
+    }
+
+
+    fun getItemByProductId(productId: Long): CartItem? {
+        return list.firstOrNull { it.product.id == productId }
     }
 
 
@@ -90,7 +117,6 @@ class OrderProductAdapter(
         fun onQuantityChanged(item: CartItem)
         fun onSelectionChanged()
     }
-
 
 
 }

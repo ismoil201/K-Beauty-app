@@ -160,20 +160,29 @@
         android:layout_height="match_parent">
 
         <!-- Recycler -->
+        <!-- SHIMMER LIST -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_product"
+            app:spanCount="3"
+            android:padding="4dp"
+            android:clipToPadding="false"
+
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+         />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="4dp"
             android:clipToPadding="false"
             android:visibility="gone"/>
 
         <!-- Loading -->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:indeterminate="true"
-            android:layout_centerInParent="true"/>
+
 
     </RelativeLayout>
 

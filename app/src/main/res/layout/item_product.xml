@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutProductCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="8dp"
+    android:clickable="true"
+    android:focusable="true">
 
-    <!-- IMAGE -->
+    <!-- ================= IMAGE AREA ================= -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="160dp">
 
         <ImageView
             android:id="@+id/imgProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:background="#F2F2F2"
             android:src="@drawable/img"/>
 
+        <!-- LIKE -->
         <ImageView
             android:id="@+id/btnLike"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="top|end"
             android:layout_margin="10dp"
-            android:src="@drawable/heart_svg"/>
+            android:padding="6dp"
+            android:src="@drawable/heart_svg"
+            android:contentDescription="Sevimlilarga qo‘shish"/>
+
+
     </FrameLayout>
 
-    <!-- BRAND -->
+    <!-- ================= BRAND ================= -->
     <TextView
         android:id="@+id/tvBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="다슈"
+        android:text="DASHU"
         android:textSize="12sp"
-        android:textColor="#9E9E9E"
+        android:textColor="#8E8E8E"
         android:fontFamily="@font/montserrat_medium"/>
 
-    <!-- NAME -->
+    <!-- ================= NAME ================= -->
     <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="맨즈 멀티 커버 스틱 파운데이션 (3color)"
+        android:layout_marginTop="4dp"
+        android:text="Erkaklar uchun multi-cover stik tonal krem (3 rang)"
         android:textSize="14sp"
         android:textColor="#111111"
         android:maxLines="2"
         android:ellipsize="end"
         android:fontFamily="@font/montserrat_semibold"/>
 
-    <!-- PRICE -->
+    <!-- ================= PRICE ================= -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,25 +70,26 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/tvDiscountPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="35%"
-            android:textColor="#FF3B30"
             android:textSize="14sp"
-            android:fontFamily="@font/montserrat_semibold"/>
+            android:textColor="#FF3B30"
+            android:fontFamily="@font/montserrat_bold"/>
 
         <TextView
-            android:id="@+id/tvPrice"
+            android:id="@+id/tvFinalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:text="24,800원"
+            android:text="248 000 so‘m"
             android:textSize="15sp"
             android:textColor="#000000"
             android:fontFamily="@font/montserrat_bold"/>
     </LinearLayout>
 
-    <!-- RATING -->
+    <!-- ================= RATING + SALES ================= -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,13 +103,35 @@
             android:src="@drawable/star_svg"/>
 
         <TextView
+            android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="4.9 (904)"
+            android:text="4.9"
             android:textSize="12sp"
             android:textColor="#FF9800"
             android:fontFamily="@font/montserrat_medium"/>
+
+        <TextView
+            android:id="@+id/tvReviewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="(904 baho)"
+            android:textSize="12sp"
+            android:textColor="#9E9E9E"
+            android:fontFamily="@font/montserrat_regular"/>
     </LinearLayout>
+
+    <!-- ================= TRUST INFO ================= -->
+    <TextView
+        android:id="@+id/tvTrust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Original · Tez yetkazib berish"
+        android:textSize="11sp"
+        android:textColor="#2E7D32"
+        android:fontFamily="@font/montserrat_medium"/>
 
 </LinearLayout>

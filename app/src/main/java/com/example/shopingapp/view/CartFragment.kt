@@ -8,11 +8,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shopingapp.R
 import com.example.shopingapp.adapter.OrderProductAdapter
+import com.example.shopingapp.adapter.ShimmerAdapter
 import com.example.shopingapp.databinding.FragmentCartBinding
 import com.example.shopingapp.model.CartItem
+import com.example.shopingapp.model.Product
 import com.example.shopingapp.network.RetrofitClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -21,15 +28,15 @@ import retrofit2.Response
 
 class CartFragment : Fragment(),
     OrderProductAdapter.CartActionListener {
-    private var isBottomBarVisible = true
 
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: OrderProductAdapter
+    private lateinit var shimmerAdapter: ShimmerAdapter
     private lateinit var sessionManager: SessionManager
 
-    // debounce uchun
-    private var updateRunnable: Runnable? = null
     private val handler = Handler(Looper.getMainLooper())
+    private var updateRunnable: Runnable? = null
+    private var isBottomBarVisible = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,42 +49,17 @@ class CartFragment : Fragment(),
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        setupShimmer()
         setupRecycler()
+        setupListeners()
+        setupScrollBehavior()
+
+        showLoading()
         loadCart()
 
-        // Select all
-        binding.cbSelectAll.setOnCheckedChangeListener { _, checked ->
-            adapter.selectAll(checked)
-            updateSelectCount()
-            calculatePrices()
-        }
-
-        // Delete selected
-        binding.tvDeleteSelected.setOnClickListener {
-            deleteSelected()
-        }
-
-        // Default prices
-        binding.itemPriceFinally.tvValue.text = "0원"
-        binding.itemPriceDiscoutRow.tvValue.text = "-0원"
-        binding.itemProductDelivery.tvValue.text = "0원"
-
-        binding.btnOrder.setOnClickListener {
-
-
-
-            // TODO: checkout / order API
-        }
-
-
-        binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-            if (scrollY > oldScrollY && isBottomBarVisible) {
-                hideBottomBar()
-                isBottomBarVisible = false
-            } else if (scrollY < oldScrollY && !isBottomBarVisible) {
-                showBottomBar()
-                isBottomBarVisible = true
-            }
+        binding.btnGoShopping.setOnClickListener {
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 
@@ -86,20 +68,99 @@ class CartFragment : Fragment(),
         loadCart()
     }
 
-    // =======================
-    // RecyclerView
-    // =======================
+    // ================= SETUP =================
+    private fun setupShimmer() {
+        shimmerAdapter = ShimmerAdapter()
+        binding.rvShimmer.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvShimmer.adapter = shimmerAdapter
+    }
+
     private fun setupRecycler() {
-        adapter = OrderProductAdapter(mutableListOf(), this)
-        binding.rvOrderProducts.layoutManager =
-            LinearLayoutManager(requireContext())
+        adapter = OrderProductAdapter(mutableListOf(),
+            listener = this,
+            onProductClick = { product ->
+                findNavController().navigate(
+                    R.id.action_orderFragment_to_detailFragment,
+                    Bundle().apply { putLong("productId", product.id) }
+                )
+            },
+            onProductDelete = { product ->
+                deleteCartItem(product)
+            }
+        )
+        binding.rvOrderProducts.layoutManager = LinearLayoutManager(requireContext())
         binding.rvOrderProducts.adapter = adapter
     }
 
-    // =======================
-    // Load cart
-    // =======================
+    private fun deleteCartItem(product: Product) {
+
+        val cartItem = adapter.getItemByProductId(product.id) ?: return
+
+        RetrofitClient.instance(requireContext())
+            .deleteCartItem(cartItem.id)
+            .enqueue(object : Callback<ResponseBody> {
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+
+                        adapter.removeItem(cartItem)
+
+                        Toast.makeText(context, "O‘chirildi", Toast.LENGTH_SHORT).show()
+
+                        updateSelectCount()
+                        calculatePrices()
+
+                        if (adapter.itemCount == 0) {
+                            showEmpty()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e("CART", "delete error", t)
+                }
+            })
+    }
+
+    private fun setupListeners() {
+        binding.cbSelectAll.setOnCheckedChangeListener { _, checked ->
+            adapter.selectAll(checked)
+            updateSelectCount()
+            calculatePrices()
+        }
+
+        binding.tvDeleteSelected.setOnClickListener {
+            deleteSelected()
+        }
+
+        binding.btnOrder.setOnClickListener {
+            // TODO checkout
+        }
+
+    }
+
+    private fun setupScrollBehavior() {
+        binding.rvOrderProducts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 8 && isBottomBarVisible) {
+                    hideBottomBar()
+                    isBottomBarVisible = false
+                } else if (dy < -8 && !isBottomBarVisible) {
+                    showBottomBar()
+                    isBottomBarVisible = true
+                }
+            }
+        })
+    }
+
+    // ================= LOAD CART =================
     private fun loadCart() {
+
+        showLoading()
+
         RetrofitClient.instance(requireContext())
             .getMyCart()
             .enqueue(object : Callback<List<CartItem>> {
@@ -109,104 +170,70 @@ class CartFragment : Fragment(),
                     response: Response<List<CartItem>>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        adapter.submitData(response.body()!!)
-                        updateSelectCount()
-                        calculatePrices()
+
+                        val items = response.body()!!
+
+                        if (items.isEmpty()) {
+                            showEmpty()
+                        } else {
+                            showCart(items)
+                        }
+
                     } else {
-                        Log.e("CART", "response code=${response.code()}")
+                        showEmpty()
                     }
                 }
 
                 override fun onFailure(call: Call<List<CartItem>>, t: Throwable) {
                     Log.e("CART", "load error", t)
+                    showEmpty()
                 }
             })
     }
 
-    // =======================
-    // Delete selected
-    // =======================
-    private fun deleteSelected() {
-        val selectedItems = adapter.getSelectedItems().toList()
+    private fun showCart(items: List<CartItem>) {
 
-        selectedItems.forEach { item ->
-            RetrofitClient.instance(requireContext())
-                .deleteCartItem(item.id)
-                .enqueue(object : Callback<ResponseBody> {
+        binding.rvShimmer.visibility = View.GONE
+        binding.layoutEmpty.visibility = View.GONE
+        binding.rvOrderProducts.visibility = View.VISIBLE
+        binding.bottomBar.visibility = View.VISIBLE
 
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
-                    ) {
-                        adapter.removeItem(item)
-                        updateSelectCount()
-                        calculatePrices()
-                    }
+        binding.cbSelectAll.visibility = View.VISIBLE
+        binding.tvDeleteSelected.visibility = View.VISIBLE
+        binding.tvSellerTitle.visibility = View.VISIBLE
 
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Log.e("CART", "delete error", t)
-                    }
-                })
-        }
-    }
-
-    // =======================
-    // Select count
-    // =======================
-    private fun updateSelectCount() {
-        val selected = adapter.getSelectedItems().size
-        val total = adapter.itemCount
-
-        binding.cbSelectAll.text = "전체선택 ($selected/$total)"
-        binding.cbSelectAll.isChecked =
-            total > 0 && selected == total
-    }
-
-    // =======================
-    // Quantity + / −
-    // =======================
-    override fun onQuantityChanged(item: CartItem) {
-
-        // UI darhol yangilansin
-        calculatePrices()
-
-        // eski PUT ni bekor qilamiz
-        updateRunnable?.let { handler.removeCallbacks(it) }
-
-        updateRunnable = Runnable {
-            Log.d(
-                "CART_PUT",
-                "PUT cartItemId=${item.id}, quantity=${item.quantity}"
-            )
-
-            RetrofitClient.instance(requireContext())
-                .updateCartQuantity(item.id, item.quantity)
-                .enqueue(object : Callback<ResponseBody> {
-
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
-                    ) {
-                        Log.d("CART_PUT", "responseCode=${response.code()}")
-                    }
-
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Log.e("CART_PUT", "onFailure", t)
-                    }
-                })
-        }
-
-        handler.postDelayed(updateRunnable!!, 500)
-    }
-
-    override fun onSelectionChanged() {
+        adapter.submitData(items)
         updateSelectCount()
         calculatePrices()
     }
 
-    // =======================
-    // PRICE CALCULATION 🔥
-    // =======================
+    private fun showEmpty() {
+
+        binding.rvShimmer.visibility = View.GONE
+        binding.rvOrderProducts.visibility = View.GONE
+        binding.layoutEmpty.visibility = View.VISIBLE
+        binding.bottomBar.visibility = View.GONE
+
+        binding.cbSelectAll.visibility = View.GONE
+        binding.tvDeleteSelected.visibility = View.GONE
+        binding.tvSellerTitle.visibility = View.GONE
+
+        binding.tvTotalPrice.text = "$0.00"
+        binding.btnOrder.text = "Buyurtma berish"
+    }
+
+    private fun showLoading() {
+
+        binding.rvShimmer.visibility = View.VISIBLE
+        binding.rvOrderProducts.visibility = View.GONE
+        binding.layoutEmpty.visibility = View.GONE
+        binding.bottomBar.visibility = View.GONE
+
+        binding.tvTotalPrice.text = "$0.00"
+        binding.btnOrder.text = "Buyurtma berish"
+    }
+
+    // ================= PRICE =================
     private fun calculatePrices() {
 
         val selectedItems = adapter.getSelectedItems()
@@ -219,10 +246,8 @@ class CartFragment : Fragment(),
             val price = item.product.price
             val discountPrice = item.product.discountPrice
 
-            // 🔹 umumiy narx
             totalPrice += price * item.quantity
 
-            // 🔥 FAAT REAL DISCOUNT BO‘LSA
             if (
                 discountPrice != null &&
                 discountPrice > 0 &&
@@ -232,45 +257,93 @@ class CartFragment : Fragment(),
             }
         }
 
-        // 🚚 DELIVERY
-        val deliveryFee =
-            if (selectedItems.isEmpty()) {
-                0.0
-            } else if (totalPrice - discountTotal >= 250.0) {
-                0.0
-            } else {
-                5.0
-            }
-
+        val deliveryFee = 0.0
         val finalPrice = totalPrice - discountTotal + deliveryFee
 
-        // 💲 FORMAT
-        fun dollar(value: Double): String =
-            "$" + String.format("%.2f", value)
+        fun money(v: Double) = "$" + String.format("%.2f", v)
 
-        // UI UPDATE
-
-        binding.itemPriceRow.tvValue.text = dollar(finalPrice)
-        binding.itemPriceFinally.tvValue.text = dollar(finalPrice)
-        binding.itemPriceDiscoutRow.tvValue.text =
-            if (discountTotal > 0) "-${dollar(discountTotal)}" else "$0.00"
-
-        binding.itemProductDelivery.tvValue.text = dollar(deliveryFee)
-        binding.btnOrder.text = "${dollar(finalPrice)} Order"
+        binding.tvTotalPrice.text = money(finalPrice)
+        binding.btnOrder.text = "Buyurtma • ${money(finalPrice)}"
     }
+
+    // ================= SELECTION =================
+    private fun updateSelectCount() {
+        val selected = adapter.getSelectedItems().size
+        val total = adapter.itemCount
+        binding.cbSelectAll.text = "Barchasini tanlash ($selected/$total)"
+        binding.cbSelectAll.isChecked = total > 0 && selected == total
+    }
+
+    // ================= QUANTITY =================
+    override fun onQuantityChanged(item: CartItem) {
+
+        calculatePrices()
+
+        updateRunnable?.let { handler.removeCallbacks(it) }
+
+        updateRunnable = Runnable {
+            RetrofitClient.instance(requireContext())
+                .updateCartQuantity(item.id, item.quantity)
+                .enqueue(object : Callback<ResponseBody> {
+
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        Log.d("CART", "quantity updated")
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Log.e("CART", "quantity error", t)
+                    }
+                })
+        }
+
+        handler.postDelayed(updateRunnable!!, 500)
+    }
+
+    // ================= DELETE =================
+    private fun deleteSelected() {
+        adapter.getSelectedItems().toList().forEach { item ->
+            RetrofitClient.instance(requireContext())
+                .deleteCartItem(item.id)
+                .enqueue(object : Callback<ResponseBody> {
+
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        adapter.removeItem(item)
+                        updateSelectCount()
+                        calculatePrices()
+
+                        if (adapter.itemCount == 0) {
+                            showEmpty()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}
+                })
+        }
+    }
+
+    override fun onSelectionChanged() {
+        updateSelectCount()
+        calculatePrices()
+    }
+
+    // ================= BOTTOM BAR =================
     private fun hideBottomBar() {
         binding.bottomBar.animate()
             .translationY(binding.bottomBar.height.toFloat())
-            .setDuration(200)
+            .setDuration(180)
             .start()
     }
 
     private fun showBottomBar() {
         binding.bottomBar.animate()
             .translationY(0f)
-            .setDuration(200)
+            .setDuration(180)
             .start()
     }
-
-
 }

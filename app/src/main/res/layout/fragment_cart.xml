@@ -1,185 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#F5F5F5">
 
-
     <!-- ================= CONTENT ================= -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:background="@color/white"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="44dp"
-        android:fillViewport="true">
+        android:orientation="vertical">
 
-
+        <!-- ================= SELECT BAR ================= -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- ================= TOP SELECT BAR ================= -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@android:color/white"
-                android:paddingHorizontal="16dp">
+            android:layout_height="52dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
 
-                <!-- 전체선택 -->
-                <CheckBox
-                    android:id="@+id/cbSelectAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체선택 (3/4)"
-                    android:textSize="14sp"
-                    android:textColor="#444444"
-                    android:buttonTint="#000000"/>
-
-                <!-- spacer -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <!-- 품절삭제 -->
-                <TextView
-                    android:id="@+id/tvDeleteSoldOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="품절삭제"
-                    android:textSize="14sp"
-                    android:textColor="#111111"
-                    android:padding="8dp"/>
-
-                <!-- 선택삭제 -->
-                <TextView
-                    android:id="@+id/tvDeleteSelected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="선택삭제"
-                    android:textSize="14sp"
-                    android:textColor="#111111"
-                    android:padding="8dp"/>
-            </LinearLayout>
-
-            <!-- divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#EEEEEE"/>
-
-
-            <!-- SELLER TITLE -->
-            <TextView
-                android:id="@+id/tvSellerTitle"
-                android:layout_width="match_parent"
+            <CheckBox
+                android:id="@+id/cbSelectAll"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="바디홀릭 배송상품"
+                android:text="Barchasini tanlash (0/0)"
+                android:textSize="14sp"
+                android:textColor="#222222" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvDeleteSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanlanganni o‘chirish"
+                android:textSize="13sp"
+                android:textColor="#111111"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <!-- ================= SELLER ================= -->
+        <TextView
+            android:id="@+id/tvSellerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:text="Sotuvchi: Body Holic"
+            android:textSize="16sp"
+            android:textColor="#111111"
+            android:fontFamily="@font/montserrat_bold"
+            android:padding="12dp" />
+
+        <!-- ================= SHIMMER ================= -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:listitem="@layout/item_product_shimmer" />
+
+        <!-- ================= CART ITEMS ================= -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrderProducts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_cart_product" />
+
+        <!-- ================= EMPTY CART ================= -->
+        <LinearLayout
+            android:id="@+id/layoutEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="@android:color/white"
+            android:padding="24dp">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@drawable/empty_cart_svg"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Savat hozircha bo‘sh"
                 android:textSize="18sp"
                 android:textColor="#111111"
-                android:padding="16dp"
-                android:fontFamily="@font/montserrat_bold"/>
+                android:fontFamily="@font/montserrat_bold" />
 
-            <!-- ================= ORDER LIST ================= -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvOrderProducts"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_cart_product"/>
+                android:layout_marginTop="8dp"
+                android:text="Mahsulotlarni tanlab savatingizga qo‘shing"
+                android:textSize="14sp"
+                android:textColor="#777777"
+                android:gravity="center" />
 
-            <!-- ================= 예상 결제금액 ================= -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@android:color/white"
-                android:padding="16dp"
-                android:layout_marginTop="8dp">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="예상 결제금액"
-                    android:textSize="18sp"
-                    android:textColor="#111111"
-                    android:fontFamily="@font/montserrat_bold"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE"
-                    android:layout_marginVertical="12dp"/>
-
-                <!-- 총 상품금액 -->
-                <include
-                    android:id="@+id/item_price_row"
-
-                    layout="@layout/item_price_row"
-                    app:title="Umumiy narx"
-                    />
-
-                <!-- 상품할인 -->
-                <include
-                    android:id="@+id/item_price_discout_row"
-
-                    layout="@layout/item_price_discout_row"
-                    app:title="mahsulot chegirmasi"
-                  />
-
-                <!-- 배송비 -->
-                <include
-                    android:id="@+id/item_product_delivery"
-
-                    layout="@layout/item_product_delivery"
-                    app:title="pochta puli"
-                    />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE"
-                    android:layout_marginVertical="12dp"/>
-
-                <!-- 최종 금액 -->
-                <include
-                    android:id="@+id/item_price_finally"
-
-                    layout="@layout/item_price_finally"
-                    app:title="barcha mahsulotlar narxi "
-
-                    />
-
-            </LinearLayout>
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoShopping"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Mahsulotlarni ko‘rish"
+                android:textAllCaps="false"
+                app:cornerRadius="14dp"
+                app:backgroundTint="@color/pink"
+                android:textColor="@color/white" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-    <!-- ================= BOTTOM BUTTON ================= -->
+    </LinearLayout>
+
+    <!-- ================= BOTTOM BAR ================= -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="64dp"
         android:layout_gravity="bottom"
         android:background="@color/pink"
-        android:gravity="center"
-        android:elevation="10dp">
+        android:elevation="12dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior">
+
+        <TextView
+            android:id="@+id/tvTotalPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0 so‘m"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_bold" />
 
         <TextView
             android:id="@+id/btnOrder"
-            android:padding="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0원 주문하기"
-            android:textSize="14sp"
+            android:text="Buyurtma berish"
             android:textColor="@color/white"
-            android:fontFamily="@font/montserrat_bold"/>
+            android:textSize="15sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingHorizontal="12dp" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

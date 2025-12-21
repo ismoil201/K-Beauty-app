@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     // 🔥 Firebase BOM
 
     // 🔐 Firebase Auth

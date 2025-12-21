@@ -2,19 +2,19 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:id="@+id/root"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
+    app:cardElevation="3dp"
     android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <!-- ================= USER HEADER ================= -->
@@ -26,13 +26,14 @@
 
             <!-- Avatar -->
             <ImageView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:id="@+id/imgAvatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:src="@drawable/user_shield_svg"
                 android:background="@drawable/bg_circle_gray"
                 android:padding="10dp"/>
 
-            <!-- Name + badge -->
+            <!-- Name + level -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -48,85 +49,93 @@
 
                     <TextView
                         android:id="@+id/tvUserName"
-                        android:text="ismoiljoraxon..."
-                        android:textSize="15sp"
-                        android:textColor="#111111"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"/>
-
-                    <!-- Badge -->
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="White"
+                        android:text="Ismoil Joraxon"
+                        android:textSize="15sp"
+                        android:textColor="#111111"
+                        android:fontFamily="@font/montserrat_bold"/>
+
+                    <!-- Level badge -->
+                    <TextView
+                        android:id="@+id/tvUserLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="White daraja"
                         android:textSize="11sp"
                         android:textColor="#666666"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="2dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/butttom_bg1"/>
+                        android:background="@drawable/button_outline_gray"/>
                 </LinearLayout>
 
                 <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:id="@+id/tvUserEmail"
-                    android:text="체형 정보 입력하기"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profil ma’lumotlarini to‘ldirish"
                     android:textSize="12sp"
                     android:textColor="#999999"
                     android:fontFamily="@font/montserrat_regular"/>
             </LinearLayout>
 
+            <!-- Go to profile -->
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/arrow_right_svg"/>
         </LinearLayout>
 
-        <!-- divider -->
+        <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="16dp"
             android:background="#EEEEEE"/>
 
-        <!-- ================= STATUS ROW ================= -->
+        <!-- ================= QUICK STATUS ================= -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="4">
 
+            <!-- Buyurtmalar -->
             <include
+                android:layout_height="wrap_content"
+
                 android:id="@+id/order_history"
                 layout="@layout/item_profile_order"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-              />
+                android:layout_weight="1"/>
 
+            <!-- Sharhlar -->
             <include
                 android:id="@+id/order_comment"
-                android:layout_width="0dp"
-                layout="@layout/item_profile_comment"
-                android:layout_weight="1"
-               />
+                android:layout_height="wrap_content"
 
+                layout="@layout/item_profile_comment"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+
+            <!-- Kuponlar -->
             <include
                 android:id="@+id/coupon"
-                android:layout_width="0dp"
-                layout="@layout/item_profile_coupon"
-                android:layout_weight="1"
-              />
+                android:layout_height="wrap_content"
 
+                layout="@layout/item_profile_coupon"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+
+            <!-- Sozlamalar -->
             <include
                 android:id="@+id/settings"
-                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
                 layout="@layout/item_profile_settings"
-                android:layout_weight="1"
-              />
-
-
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
         </LinearLayout>
 
     </LinearLayout>
