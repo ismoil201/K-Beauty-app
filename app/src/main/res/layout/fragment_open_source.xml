@@ -1,14 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".view.OpenSourceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="16dp"
+        android:fillViewport="true">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open Source Libraries &amp; Technologies"
+                android:textSize="20sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- SUBTITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This application is built using the following open-source technologies and platforms"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="6dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE"/>
+
+            <!-- ================= ANDROID FRONTEND ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android Frontend"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Android Jetpack – A collection of modern Android libraries used for lifecycle management, navigation, ViewBinding, and architecture components to ensure a stable and maintainable UI."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Retrofit – A type-safe HTTP client for Android used to communicate with the backend REST APIs efficiently and reliably."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Glide – An advanced image loading and caching library optimized for smooth scrolling and reduced memory usage."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Firebase Authentication – Provides secure user authentication via Google Sign-In and phone number (OTP) verification."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Facebook Shimmer – Displays animated loading placeholders to improve perceived performance and user experience."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <!-- ================= BACKEND ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Backend &amp; Server Technologies"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Spring Boot – A Java-based backend framework used to build scalable and production-ready RESTful APIs."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Spring Security + JWT – Implements stateless authentication using JSON Web Tokens to protect user sessions and API endpoints."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Spring Data JPA – Simplifies database access using ORM, repository patterns, and transactional data handling."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• MySQL – A reliable relational database system used to store user accounts, orders, products, and transactional data."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Eskiz SMS API – Used for phone number verification and one-time password (OTP) delivery during authentication."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <!-- ================= INFRASTRUCTURE ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Infrastructure &amp; Deployment"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Docker – Containerization technology used to package the backend application with all dependencies for consistent deployment."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Railway Cloud – Cloud hosting platform used to deploy, scale, and monitor backend services."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <!-- ================= SECURITY ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Security &amp; Data Protection"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• HTTPS – All network communication is encrypted using HTTPS to protect user data."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Secure Password Handling – User credentials are never stored in plain text."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Token-based Authorization – All protected requests require valid JWT tokens."
+                android:textSize="13sp"
+                android:textColor="#444444"/>
+
+            <!-- FOOTER -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="We respect the open-source community and strictly comply with all license requirements and security best practices."
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

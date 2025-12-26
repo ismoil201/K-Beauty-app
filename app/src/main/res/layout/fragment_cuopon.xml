@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".ui.CuoponFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aksiyalar va kuponlar"
+                android:textSize="20sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- SUBTITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foydali takliflardan foydalaning va tejang"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="6dp"/>
+
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE"/>
+
+            <!-- ================= COUPON ITEM ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp"
+                android:layout_marginTop="16dp"
+                android:background="#FFF5F5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎁 50 000 so‘m chegirma"
+                    android:textSize="16sp"
+                    android:textColor="#D32F2F"
+                    android:fontFamily="@font/montserrat_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100% original koreys kosmetikasi uchun"
+                    android:textSize="13sp"
+                    android:textColor="#555555"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Minimal buyurtma: 300 000 so‘m"
+                    android:textSize="12sp"
+                    android:textColor="#777777"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amal qilish muddati: 2025-02-01"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
+
+            <!-- ================= COUPON ITEM ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp"
+                android:layout_marginTop="12dp"
+                android:background="#F1F8E9">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🚚 Bepul yetkazib berish"
+                    android:textSize="16sp"
+                    android:textColor="#2E7D32"
+                    android:fontFamily="@font/montserrat_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Barcha buyurtmalar uchun"
+                    android:textSize="13sp"
+                    android:textColor="#555555"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheklangan vaqt"
+                    android:textSize="12sp"
+                    android:textColor="#777777"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amal qilish muddati: 2025-01-20"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
+
+            <!-- ================= MARKETING TRUST ================= -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#EEEEEE"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nega bizning kuponlar foydaliroq?"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Kuponlar faqat 100% original koreys kosmetikasi uchun\n• Yashirin shartlarsiz\n• Real chegirmalar, soxta narx oshirish yo‘q\n• Chegirma darhol savatchada ko‘rinadi"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- CTA -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🎯 Kuponni ishlatish uchun mahsulotni savatchaga qo‘shing"
+                android:textSize="14sp"
+                android:textColor="#2E7D32"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <!-- FOOTER -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aksiyalar va kuponlar vaqti-vaqti bilan yangilanadi. Eng foydali takliflarni o‘tkazib yubormang."
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:lineSpacingExtra="4dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

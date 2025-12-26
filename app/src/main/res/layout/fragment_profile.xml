@@ -1,161 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
 
         <!-- ================= HEADER ================= -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/montserrat_bold"
             android:text="Mening sahifam"
-            android:textSize="18sp"
             android:textColor="#111111"
-            android:fontFamily="@font/montserrat_bold"/>
+            android:textSize="20sp" />
 
-        <!-- ================= USER INFO (LOGIN) ================= -->
+        <!-- ================= USER INFO ================= -->
         <include
             android:id="@+id/layoutUserInfo"
             layout="@layout/item_profile_user"
-            android:visibility="gone"/>
+            android:layout_marginHorizontal="16dp"
+            android:visibility="visible" />
+
+        <!-- ================= ORDERS ================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Buyurtmalarim"
+                    android:textColor="#757575"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Barchasini ko‘rish"
+                    android:textColor="@color/pink"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_order" />
+        </LinearLayout>
 
         <!-- ================= PROMO / GUEST ================= -->
         <LinearLayout
             android:id="@+id/layoutPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
             android:padding="20dp"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="A’zolar uchun bepul yetkazib berish"
-                android:textSize="18sp"
                 android:textColor="#111111"
-                android:fontFamily="@font/montserrat_bold"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Hozir ro‘yxatdan o‘ting va 30% gacha chegirma beruvchi 4 ta kupon oling!"
-                android:textSize="14sp"
                 android:textColor="@color/pink"
-                android:fontFamily="@font/montserrat_medium"/>
+                android:textSize="14sp" />
 
-            <!-- ACTION BUTTONS -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="44dp"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/light_pink"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Ro‘yxatdan o‘tish"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:backgroundTint="@color/light_pink"/>
+                    android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_login"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_weight="1"
+                    android:layout_height="44dp"
                     android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#111111"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Kirish"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:backgroundTint="#111111"/>
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ================= DIVIDER ================= -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="#F4F4F4"/>
-
-        <!-- ================= RECOMMENDED ================= -->
+        <!-- ================= SECTION ================= -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:padding="16dp"
+            android:fontFamily="@font/montserrat_medium"
             android:text="Tavsiyalar"
-            android:textSize="14sp"
             android:textColor="#9E9E9E"
-            android:fontFamily="@font/montserrat_medium"/>
-
+            android:textSize="14sp" />
         <include
             android:id="@+id/rowBonus"
+            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_cupon"
             app:icon="@drawable/gift_svg"
-            app:title="Kuponlarim"/>
-
-        <!-- ================= DIVIDER ================= -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="24dp"
-            android:background="#EEEEEE"/>
-
-        <!-- ================= HELP ================= -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Yordam va ma’lumot"
-            android:textSize="14sp"
-            android:textColor="#9E9E9E"
-            android:fontFamily="@font/montserrat_medium"/>
+            app:title="Kuponlarim" />
 
         <include
             android:id="@+id/rowSupport"
+            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_support"
             app:icon="@drawable/support_svg"
-            app:title="Mijozlar xizmati"/>
+            app:title="Mijozlar xizmati" />
 
         <include
             android:id="@+id/rowAnnouncement"
+            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_notice"
             app:icon="@drawable/notice_svg"
-            app:title="E’lonlar"/>
+            app:title="E’lonlar" />
 
         <include
             android:id="@+id/rowPrivacy"
+            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_user_shield"
             app:icon="@drawable/user_shield_svg"
-            app:title="Maxfiylik siyosati"/>
+            app:title="Maxfiylik siyosati" />
 
         <include
             android:id="@+id/rowTerms"
+            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_document"
             app:icon="@drawable/paper_document_svg"
-            app:title="Foydalanish shartlari"/>
+            app:title="Foydalanish shartlari" />
 
         <include
             android:id="@+id/rowOpenSource"
+            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_code"
             app:icon="@drawable/code_svg"
-            app:title="Ochiq kod litsenziyalari"/>
+            app:title="Ochiq kod litsenziyalari" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="24dp"/>
+            android:layout_height="32dp" />
     </LinearLayout>
 </ScrollView>

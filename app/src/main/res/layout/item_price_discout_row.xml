@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Product discounts"
+        android:text="Mahsulot chegirmalari"
         android:textSize="14sp"
         android:textColor="#777777"
         android:fontFamily="@font/montserrat_medium"/>
@@ -20,7 +20,7 @@
         android:id="@+id/tvValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0원"
+        android:text="0 so'm"
         android:textSize="15sp"
         android:textColor="#E53935"
         android:fontFamily="@font/montserrat_semibold"/>

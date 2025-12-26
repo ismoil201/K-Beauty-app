@@ -1,14 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".view.ServiceUserFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="16dp"
+        android:fillViewport="true">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mijozlarga xizmat"
+                android:textSize="20sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- SUBTITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Savollaringiz bormi? Biz sizga yordam beramiz."
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="6dp"/>
+
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE"/>
+
+            <!-- ================= FAQ ================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ko‘p so‘raladigan savollar"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Buyurtmam qachon yetib keladi?"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yetkazib berish muddati hudud va tanlangan pochta yoki kuryer xizmatiga bog‘liq."
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:lineSpacingExtra="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Buyurtmani qanday bekor qilaman?"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Buyurtma holatiga qarab, uni profil bo‘limidan yoki mijozlarga xizmat orqali bekor qilish mumkin."
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:lineSpacingExtra="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Mahsulotni qaytarish mumkinmi?"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Qaytarish shartlari mahsulot turiga bog‘liq. Tafsilotlar uchun foydalanish shartlarini ko‘ring."
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- ================= MARKETING TRUST BLOCK ================= -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#EEEEEE"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="100% Original va Koreyadan to‘g‘ridan-to‘g‘ri"
+                android:textSize="17sp"
+                android:textColor="#111111"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Ilovamizda sotiladigan barcha kosmetika mahsulotlari Janubiy Koreyadagi rasmiy ishlab chiqaruvchilar va sertifikatlangan distribyutorlardan to‘g‘ridan-to‘g‘ri import qilinadi. Platformamizda joylashtirilgan barcha mahsulotlar original hisoblanadi.
+Soxta, qalbakilashtirilgan yoki noqonuniy mahsulotlar savdosi qat’iyan taqiqlanadi.
+"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nega aynan biz?"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Koreyadan bevosita import\n• Soxta mahsulotlar mutlaqo yo‘q\n• Zavod qadoqlari va original plombalar\n• Har bir buyurtma jo‘natilishdan oldin tekshiriladi\n• Minglab mamnun mijozlar tanlovi"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agar mahsulot original bo‘lmasa — pulingiz 100% qaytariladi."
+                android:textSize="15sp"
+                android:textColor="#2E7D32"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Biz teringizga zarar yetkazadigan noma’lum mahsulotlarni sotmaymiz.
+
+\n\t Biz tanlaymiz:\n\t\t\t
+✔ Faqat original koreys brendlari - ORIGINAL 100% 🛡 \n\t\t\t
+✔ Dermatologik testlardan o‘tgan mahsulotlar - Bevosita \t\t\t\t\t\t Koreyadan🇰🇷\n\t\t\t
+✔ Koreyada mashhur va ishonchli liniyalar  \n\t\t\t
+
+Shu sababli minglab mijozlar bizni tanlaydi.
+"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🇰🇷 Koreyada trend bo‘lgan, dermatologlar tavsiya qiladigan va sifat nazoratidan o‘tgan kosmetika mahsulotlari."
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bizning maqsadimiz — O‘zbekistonda koreys kosmetikasining eng ishonchli va sifatli manbai bo‘lish."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- ================= CONTACT ================= -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#EEEEEE"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Biz bilan bog‘laning"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📧 Email: ismoiljoraxonov1@gmail.com"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📞 Telefon: +998 94 151 58 15"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🕘 Ish vaqti: 09:00 – 18:00 (Dushanba–Juma)"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Biz sizning murojaatlaringizni qadrlaymiz va imkon qadar tez javob berishga harakat qilamiz."
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:lineSpacingExtra="4dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

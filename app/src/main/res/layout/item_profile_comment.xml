@@ -9,7 +9,7 @@
     android:focusable="true"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="4dp">
+   >
 
     <ImageView
         android:id="@+id/imgIcon"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvTitle"
         android:layout_marginTop="6dp"
-        android:text="Comments"
+        android:text="Izohlar"
         android:textSize="12sp"
         android:textColor="#666666"
         android:fontFamily="@font/montserrat_regular"/>

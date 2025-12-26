@@ -23,29 +23,31 @@
             android:background="#F2F2F2"
             android:src="@drawable/img"/>
 
-        <!-- LIKE -->
+        <!-- 🔥 BADGE -->
+
+        <!-- ❤️ LIKE -->
         <ImageView
             android:id="@+id/btnLike"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="top|end"
             android:layout_margin="10dp"
             android:padding="6dp"
+            android:background="@drawable/bg_circle_white_shadow"
             android:src="@drawable/heart_svg"
             android:contentDescription="Sevimlilarga qo‘shish"/>
 
-
     </FrameLayout>
-
+    <!-- ================= BRAND ================= -->
     <!-- ================= BRAND ================= -->
     <TextView
         android:id="@+id/tvBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="DASHU"
-        android:textSize="12sp"
-        android:textColor="#8E8E8E"
+        android:layout_marginTop="6dp"
+        android:text="DASHU · Korea"
+        android:textSize="11sp"
+        android:textColor="#9E9E9E"
         android:fontFamily="@font/montserrat_medium"/>
 
     <!-- ================= NAME ================= -->
@@ -53,9 +55,9 @@
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="3dp"
         android:text="Erkaklar uchun multi-cover stik tonal krem (3 rang)"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textColor="#111111"
         android:maxLines="2"
         android:ellipsize="end"
@@ -65,7 +67,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
@@ -73,8 +75,8 @@
             android:id="@+id/tvDiscountPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="35%"
-            android:textSize="14sp"
+            android:text="−35%"
+            android:textSize="12sp"
             android:textColor="#FF3B30"
             android:fontFamily="@font/montserrat_bold"/>
 
@@ -82,33 +84,33 @@
             android:id="@+id/tvFinalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="4dp"
             android:text="248 000 so‘m"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textColor="#000000"
             android:fontFamily="@font/montserrat_bold"/>
     </LinearLayout>
 
-    <!-- ================= RATING + SALES ================= -->
+    <!-- ================= SOCIAL PROOF ================= -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:src="@drawable/star_svg"/>
 
         <TextView
             android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="3dp"
             android:text="4.9"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textColor="#FF9800"
             android:fontFamily="@font/montserrat_medium"/>
 
@@ -116,22 +118,22 @@
             android:id="@+id/tvReviewCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="(904 baho)"
-            android:textSize="12sp"
-            android:textColor="#9E9E9E"
+            android:layout_marginStart="3dp"
+            android:text="(900+)"
+            android:textSize="11sp"
+            android:textColor="#B0B0B0"
             android:fontFamily="@font/montserrat_regular"/>
     </LinearLayout>
 
-    <!-- ================= TRUST INFO ================= -->
+    <!-- ================= TRUST ================= -->
     <TextView
         android:id="@+id/tvTrust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Original · Tez yetkazib berish"
-        android:textSize="11sp"
-        android:textColor="#2E7D32"
+        android:layout_marginTop="2dp"
+        android:text="· 🇰🇷 Korea original · 🚚 Bugun"
+        android:textSize="10sp"
+        android:textColor="#388E3C"
         android:fontFamily="@font/montserrat_medium"/>
 
 </LinearLayout>

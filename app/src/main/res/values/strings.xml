@@ -3,6 +3,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- 🔥 FIREBASE GOOGLE LOGIN -->
-    <string
-        name="default_web_client_id">cosmetic-app-75fb9.firebaseapp.com</string>
+    <string name="default_web_client_id">cosmetic-app-75fb9.firebaseapp.com</string>
 </resources>

@@ -46,7 +46,7 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductVh, position: Int) {
         val item = list[position]
 
-        holder.binding.tvBrand.text = item.category
+        holder.binding.tvBrand.text = item.category +"· Korea"
         holder.binding.tvName.text = item.name
         holder.binding.tvFinalPrice.text = "${item.price}$"
         if(item.isFavorite){

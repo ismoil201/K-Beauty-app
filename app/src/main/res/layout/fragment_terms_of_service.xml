@@ -1,14 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".view.TermsOfServiceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="16dp"
+        android:fillViewport="true">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Foydalanish shartlari"
+                android:textSize="20sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- UPDATED -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oxirgi yangilanish: 2025-yil"
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:layout_marginTop="6dp"/>
+
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE"/>
+
+            <!-- INTRO -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Ushbu shartlar ilovadan foydalanish qoidalarini belgilaydi. Ilovadan foydalanish orqali siz quyidagi shartlarga rozilik bildirasiz."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 1 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Hisob va ro‘yxatdan o‘tish"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Ro‘yxatdan o‘tishda kiritilgan ma’lumotlar to‘g‘ri bo‘lishi kerak.\n• Hisob xavfsizligi (parol/kod) sizning javobgarligingizda.\n• Shubhali faoliyat bo‘lsa, hisob vaqtincha bloklanishi mumkin."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 2 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. Buyurtma va to‘lov"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Buyurtma berilgach, mahsulot narxi va mavjudligi tasdiqlanadi.\n• To‘lov usullari ilova ichida ko‘rsatiladi.\n• Noto‘g‘ri narx yoki tizim xatolari aniqlansa, buyurtma bekor qilinishi mumkin."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3. Yetkazib berish"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Yetkazib berish muddati hudud va pochta/kuryer xizmatiga bog‘liq.\n• Manzilni to‘g‘ri kiritish sizning javobgarligingizda.\n• Yetkazib berish kechikishi uchinchi tomon xizmatlari sababli bo‘lishi mumkin."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4. Qaytarish va bekor qilish"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Qaytarish shartlari mahsulot turiga qarab farq qiladi.\n• Qadoq ochilgan, ishlatilgan mahsulotlar qaytarilmasligi mumkin.\n• Muammo bo‘lsa, mijozlarga xizmat bo‘limiga murojaat qiling."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 5 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5. Taqiqlangan harakatlar"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Firibgarlik, soxta buyurtma, noto‘g‘ri ma’lumot kiritish.\n• Ilova tizimini buzishga urinish (hack, bot, spam).\n• Boshqa foydalanuvchilarga zarar yetkazish.\n\nBunday holatlarda hisob bloklanishi mumkin."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 6 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6. Javobgarlik cheklovi"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Biz xizmatni yaxshilashga harakat qilamiz, ammo internet, qurilma yoki uchinchi tomon xizmatlari sababli yuzaga kelgan uzilishlar uchun to‘liq javobgar bo‘la olmaymiz."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- SECTION 7 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="7. Shartlarni yangilash"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ushbu shartlar vaqti-vaqti bilan yangilanadi. Yangilangan versiya ilova ichida e’lon qilinadi."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"/>
+
+            <!-- CONTACT -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aloqa"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/montserrat_semibold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Savollar bo‘lsa biz bilan bog‘laning:\n📧 ismoiljoraxonov1@gmail.com"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

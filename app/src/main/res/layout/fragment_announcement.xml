@@ -1,14 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".view.AnnouncementFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="16dp"
+        android:fillViewport="true">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E’lonlar va yangiliklar"
+                android:textSize="20sp"
+                android:textColor="#111111"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- SUBTITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="So‘nggi yangiliklar, aksiyalar va muhim xabarlar"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="6dp"/>
+
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE"/>
+
+            <!-- ================= ANNOUNCEMENT ITEM ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔥 Yangi koreys kosmetikasi keldi"
+                    android:textSize="15sp"
+                    android:textColor="#111111"
+                    android:fontFamily="@font/montserrat_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2025-yanvar"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Janubiy Koreyada trend bo‘lgan yangi original kosmetika mahsulotlari ilovamizga qo‘shildi. Cheklangan miqdorda!"
+                    android:textSize="14sp"
+                    android:textColor="#444444"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#F0F0F0"/>
+
+            <!-- ================= ANNOUNCEMENT ITEM ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎁 Aksiya: bepul yetkazib berish"
+                    android:textSize="15sp"
+                    android:textColor="#111111"
+                    android:fontFamily="@font/montserrat_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024-dekabr"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cheklangan vaqt davomida barcha buyurtmalar uchun bepul yetkazib berish amal qiladi."
+                    android:textSize="14sp"
+                    android:textColor="#444444"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+
+            <!-- DIVIDER -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#F0F0F0"/>
+
+            <!-- ================= ANNOUNCEMENT ITEM ================= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✅ 100% original mahsulot kafolati"
+                    android:textSize="15sp"
+                    android:textColor="#111111"
+                    android:fontFamily="@font/montserrat_semibold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doimiy"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ilovamizdagi barcha kosmetika mahsulotlari 100% original bo‘lib, Koreyadan to‘g‘ridan-to‘g‘ri import qilinadi. Agar original bo‘lmasa — pulingiz qaytariladi."
+                    android:textSize="14sp"
+                    android:textColor="#444444"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+
+            <!-- FOOTER -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barcha yangiliklar va muhim e’lonlar shu yerda e’lon qilinadi. Sahifani vaqti-vaqti bilan tekshirib turing."
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:lineSpacingExtra="4dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

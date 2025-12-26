@@ -35,7 +35,7 @@ class OrderProductAdapter(
         b.tvOption.text = item.product.brand
         b.tvQty.text = item.quantity.toString()
         b.tvFinalPrice.text =
-            "${item.product.price * item.quantity}원"
+            "${item.product.price * item.quantity} so'm"
 
         Glide.with(holder.itemView.context)
             .load(item.product.imageUrl)

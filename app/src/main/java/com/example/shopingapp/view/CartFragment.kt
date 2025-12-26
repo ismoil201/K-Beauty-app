@@ -61,6 +61,10 @@ class CartFragment : Fragment(),
         binding.btnGoShopping.setOnClickListener {
             findNavController().navigate(R.id.homeFragment)
         }
+
+        binding.btnOrder.setOnClickListener {
+            findNavController().navigate(R.id.action_orderFragment_to_paymentFragment)
+        }
     }
 
     override fun onResume() {
@@ -263,7 +267,7 @@ class CartFragment : Fragment(),
         fun money(v: Double) = "$" + String.format("%.2f", v)
 
         binding.tvTotalPrice.text = money(finalPrice)
-        binding.btnOrder.text = "Buyurtma • ${money(finalPrice)}"
+        binding.btnOrder.text = "Buyurtma berish"
     }
 
     // ================= SELECTION =================

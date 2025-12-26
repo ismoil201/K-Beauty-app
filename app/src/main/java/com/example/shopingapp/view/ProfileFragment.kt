@@ -46,19 +46,23 @@ class ProfileFragment : Fragment() {
 
         }
         binding.rowAnnouncement.root.setOnClickListener {
-            findNavController().navigate(R.id.announcementFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_announcementFragment)
         }
 
         binding.rowPrivacy.root.setOnClickListener {
-            findNavController().navigate(R.id.privacyFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_privacyFragment)
         }
 
         binding.rowTerms.root.setOnClickListener {
-            findNavController().navigate(R.id.termsOfServiceFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_termsOfServiceFragment)
         }
 
         binding.rowOpenSource.root.setOnClickListener {
-            findNavController().navigate(R.id.openSourceFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_openSourceFragment)
+        }
+
+        binding.rowBonus.root.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_cuoponFragment)
         }
 
 

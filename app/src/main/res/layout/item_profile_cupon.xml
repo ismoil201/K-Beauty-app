@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="Coupon"
+        android:text="Aksiyalar va kuponlar"
         android:textSize="15sp"
         android:textColor="#111111"
         android:fontFamily="@font/montserrat_medium"/>

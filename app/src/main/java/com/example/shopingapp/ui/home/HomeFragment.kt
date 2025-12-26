@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
         )[HomeViewModel::class.java]
 
         // RecyclerView
-        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvProducts.adapter = adapter
 
         binding.rvProducts.addItemDecoration(
@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
         shimmerAdapter = ShimmerAdapter()
 
         binding.rvShimmer.layoutManager =
-            GridLayoutManager(requireContext(), 3)
+            GridLayoutManager(requireContext(), 2)
 
         binding.rvShimmer.adapter = shimmerAdapter
     }

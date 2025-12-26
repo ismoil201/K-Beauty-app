@@ -146,7 +146,7 @@ class DetailFragment : Fragment() {
 
     // ================= 🔁 SIMILAR =================
     private fun loadSimilar() {
-        binding.rvSimilar.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.rvSimilar.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvSimilar.adapter = adapter
 
         RetrofitClient.instance(requireContext())

@@ -72,14 +72,14 @@ interface ApiService {
 
     @POST("/api/orders")
     fun createOrder(
-        @Body body: OrderRequest
-    ): Call<Order>
+        @Body body: OrderCreateRequest
+    ): Call<OrderResponse>
 
     @GET("/api/orders")
-    fun getMyOrders(): Call<List<Order>>
+    fun getMyOrders(): Call<List<OrderResponse>>
 
     @GET("/api/orders/{orderId}")
     fun getOrderDetail(
         @Path("orderId") orderId: Long
-    ): Call<Order>
+    ): Call<OrderResponse>
 }

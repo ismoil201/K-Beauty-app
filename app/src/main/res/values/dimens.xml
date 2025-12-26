@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="stroke_selected">2dp</dimen>
+
     <dimen name="onboarding_button_margin">16dp</dimen>
     <dimen name="grid_side_padding">12dp</dimen>
     <dimen name="grid_spacing">8dp</dimen>

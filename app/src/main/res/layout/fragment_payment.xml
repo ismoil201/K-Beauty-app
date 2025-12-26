@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F6F8"
+    tools:context=".ui.PaymentFragment">
+
+    <!-- ======================= CONTENT (SCROLL) ======================= -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="92dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- Top title (like toolbar title) -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Buyurtmani rasmiylashtirish"
+                android:textColor="#111111"
+                android:textSize="18sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <!-- ===== Delivery block ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:id="@+id/tvDeliveryTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yetkazib berish"
+                        android:textColor="#111111"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_bold"/>
+
+                    <TextView
+                        android:id="@+id/tvDeliverySub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Uzum Market yetkazib berishi"
+                        android:textColor="#777777"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                    <!-- Delivery method segmented -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:background="#F1F2F4"
+                        android:padding="4dp">
+
+                        <!-- Pickup -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/chipPickup"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tvPickup"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Topshirish punkti"
+                                    android:textColor="#111111"
+                                    android:textSize="13sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:id="@+id/tvPickupFree"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="bepul"
+                                    android:textColor="#12A150"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_medium"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <View
+                            android:layout_width="6dp"
+                            android:layout_height="match_parent" />
+
+                        <!-- Courier -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/chipCourier"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tvCourier"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kuryer"
+                                    android:textColor="#111111"
+                                    android:textSize="13sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:id="@+id/tvCourierFree"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="bepul"
+                                    android:textColor="#12A150"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_medium"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <!-- Address row -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardPoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp"
+                        android:backgroundTint="#F7F7F8">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/location_svg"
+                                android:contentDescription="@null" />
+
+                            <TextView
+                                android:id="@+id/tvPointText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:text="Topshirish punkti tanlanmagan"
+                                android:textColor="#111111"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/montserrat_medium"/>
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/arrow_right_svg"
+                                android:contentDescription="@null" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Select button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChoosePoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Tanlash"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_bold"
+                        app:cornerRadius="14dp"
+                        android:backgroundTint="#EDEEF2"
+                        android:textColor="#111111"/>
+
+                    <!-- Receiver row -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardReceiver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/user_circle_svgrepo_com"
+                                android:contentDescription="@null" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Oluvchini qo‘shish"
+                                    android:textColor="#111111"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Siz yoki buyurtma ishoniladigan inson"
+                                    android:textColor="#777777"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_regular"/>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/arrow_right_svg"
+                                android:contentDescription="@null" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== Date + items preview ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="24-dekabr"
+                        android:textColor="#111111"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/imgItem1"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img"
+                            android:background="#F2F2F2"
+                            android:contentDescription="@null"/>
+
+                        <ImageView
+                            android:id="@+id/imgItem2"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="8dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img"
+                            android:background="#F2F2F2"
+                            android:contentDescription="@null"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/tvItemsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 ta tovar"
+                            android:textColor="#777777"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== Payment type ===== -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To‘lov turi"
+                android:textColor="#111111"
+                android:textSize="16sp"
+                android:layout_marginTop="14dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <!-- Uzum Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/payUzumCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp"
+                        android:backgroundTint="#F7F7F8"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/card_svg"
+                                android:contentDescription="@null"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Uzum kartasi bilan"
+                                    android:textColor="#111111"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Uzum Bank ilovasida kartani rasmiylashtirish va buyurtma uchun to‘lash mumkin"
+                                    android:textColor="#777777"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_regular"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30% gacha chegirma"
+                                android:textColor="#6B2DFF"
+                                android:textSize="11sp"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp"
+                                android:background="#EFE7FF"
+                                android:fontFamily="@font/montserrat_semibold"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                    <!-- Installment -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/payInstallment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp"
+                        android:backgroundTint="#F7F7F8"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/cash_svgrepo_com"
+                                android:contentDescription="@null"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nasiyaga"
+                                    android:textColor="#111111"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="3, 6 yoki 12 oyga bo‘lib to‘lash"
+                                    android:textColor="#777777"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_regular"/>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/arrow_right_svg"
+                                android:contentDescription="@null"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <!-- Online card selected -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/payOnlineCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="2dp"
+                        app:strokeColor="#111111"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@color/white"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/card_svg"
+                                android:contentDescription="@null"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:background="@color/white"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Karta orqali onlayn"
+                                    android:textColor="#111111"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="UZCARD, HUMO, Visa, MasterCard"
+                                    android:textColor="#777777"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_regular"/>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/check_badge_svgrepo_com"
+                                android:contentDescription="@null"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                    <!-- Pay on delivery -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/payOnDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp"
+                        android:backgroundTint="#F7F7F8"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/cash_financial_money_wallet_svgrepo_com"
+                                android:contentDescription="@null"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Olinganda to‘lanadi"
+                                    android:textColor="#111111"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Kuryerga — naqd yoki QR; topshirish punktida — naqd va karta"
+                                    android:textColor="#777777"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/montserrat_regular"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- info note -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp"
+                        android:backgroundTint="#F2EDFF">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/info_circle_svg"
+                                android:contentDescription="@null"/>
+
+                            <TextView
+                                android:id="@+id/tvNote"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"
+                                android:text="Buyurtma o‘z vaqtida olib ketilmasa, yangi xaridlarda faqat karta orqali onlayn yoki nasiyaga to‘lash mumkin bo‘ladi."
+                                android:textColor="#5A35B5"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_medium"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== Promo code ===== -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Promokod"
+                android:textColor="#111111"
+                android:textSize="16sp"
+                android:layout_marginTop="14dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPromo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="14dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/coupon_svg"
+                        android:contentDescription="@null"/>
+
+                    <TextView
+                        android:id="@+id/tvPromoAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Promokodni qo‘shish"
+                        android:textColor="#111111"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_semibold"/>
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/arrow_right_svg"
+                        android:contentDescription="@null"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===== Order summary ===== -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sizning buyurtmangiz"
+                android:textColor="#111111"
+                android:textSize="16sp"
+                android:layout_marginTop="14dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvSumItems"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="2 ta mahsulot"
+                            android:textColor="#777777"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:id="@+id/tvSumItemsPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 450 000 so‘m"
+                            android:textColor="#111111"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/montserrat_semibold"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvDeliveryRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Yetkazib berish"
+                            android:textColor="#777777"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:id="@+id/tvDeliveryPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="bepul"
+                            android:textColor="#12A150"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/montserrat_semibold"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvDiscountRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Chegirmalar"
+                            android:textColor="#777777"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:id="@+id/tvDiscount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-3 371 000 so‘m"
+                            android:textColor="#111111"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/montserrat_semibold"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="#EEEEEE"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvTotalRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Jami"
+                            android:textColor="#111111"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_bold"/>
+
+                        <TextView
+                            android:id="@+id/tvTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 079 000 so‘m"
+                            android:textColor="#111111"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_bold"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvTermsSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Buyurtmani joylashtirish orqali siz Maxfiylik siyosati va Foydalanish shartlariga rozilik bildirasiz."
+                        android:textColor="#9A9A9A"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ======================= BOTTOM PAY BAR ======================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_gravity="bottom"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="0dp"
+        app:strokeWidth="0dp"
+        android:backgroundTint="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvBottomCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 ta tovar"
+                    android:textColor="#777777"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_medium"/>
+
+                <TextView
+                    android:id="@+id/tvBottomPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 079 000 so‘m"
+                    android:textColor="#111111"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_bold"/>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPay"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:text="Kartadan to‘lash"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#6B2DFF"
+                app:cornerRadius="14dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
