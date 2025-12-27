@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,16 +16,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.shopingapp.GridSpacingItemDecoration
 import com.example.shopingapp.R
+import com.example.shopingapp.adapter.ImagePagerAdapter
 import com.example.shopingapp.adapter.ProductAdapter
+import com.example.shopingapp.adapter.ReviewAdapter
 import com.example.shopingapp.databinding.FragmentDetailBinding
 import com.example.shopingapp.model.CartAddRequest
 import com.example.shopingapp.model.Product
 import com.example.shopingapp.model.ProductDetail
-import com.example.shopingapp.network.FavoriteResponse
+import com.example.shopingapp.model.FavoriteResponse
+import com.example.shopingapp.model.PageResponse
+import com.example.shopingapp.model.ProductImage
+import com.example.shopingapp.model.ReviewResponse
 import com.example.shopingapp.network.RetrofitClient
+import com.google.android.material.tabs.TabLayoutMediator
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +48,8 @@ class DetailFragment : Fragment() {
 
     private var productId: Long = -1L
     private var isBottomBarVisible = true
+
+    private val imageDots = ArrayList<ImageView>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,7 +98,9 @@ class DetailFragment : Fragment() {
 
         setupBottomBar()
         setupScroll()
+
         setupButtons()
+        loadReviews()
 
         loadProduct()
         loadSimilar()
@@ -124,25 +138,61 @@ class DetailFragment : Fragment() {
                     response: Response<ProductDetail>
                 ) {
                     val p = response.body() ?: return
+                    setupImagePager(p.images)
 
-                    binding.tvBrand.text = p.category
+                    binding.tvBrand.text = p.brand
                     binding.tvName.text = p.name
                     binding.tvDescription.text = p.description
-                    binding.tvPrice.text = "${p.price}$"
+                    binding.tvPrice.text = "${p.discountPrice}$"
 
-                    Glide.with(requireContext())
-                        .load(p.imageUrl)
-                        .into(binding.ivProduct)
+                    // 🔥 IMAGE CAROUSEL
+                    binding.vpImages.adapter = ImagePagerAdapter(p.images)
 
-                    showDetailContent() // 🔥 SHIMMER O‘CHDI
+                    updateLikeIcon(p.favorite)
+
+                    showDetailContent()
                 }
 
                 override fun onFailure(call: Call<ProductDetail>, t: Throwable) {
                     showDetailContent()
-                    Log.e("DETAIL", "load error", t)
                 }
             })
     }
+
+    private fun loadReviews() {
+        val reviewAdapter = ReviewAdapter()
+
+        binding.rvReviews.layoutManager =
+            LinearLayoutManager(requireContext())
+
+        binding.rvReviews.adapter = reviewAdapter
+
+        RetrofitClient.instance(requireContext())
+            .getReviewsByProduct(productId)
+            .enqueue(object : Callback<List<ReviewResponse>> {
+
+                override fun onResponse(
+                    call: Call<List<ReviewResponse>>,
+                    response: Response<List<ReviewResponse>>
+                ) {
+                    val list = response.body() ?: emptyList()
+
+                    Log.d("REVIEWS", "count=${list.size}")
+
+                    reviewAdapter.submit(list)
+
+                    binding.rvReviews.visibility =
+                        if (list.isEmpty()) View.GONE else View.VISIBLE
+                }
+
+                override fun onFailure(call: Call<List<ReviewResponse>>, t: Throwable) {
+                    Log.e("REVIEWS", "error", t)
+                }
+            })
+    }
+
+
+
 
     // ================= 🔁 SIMILAR =================
     private fun loadSimilar() {
@@ -151,14 +201,14 @@ class DetailFragment : Fragment() {
 
         RetrofitClient.instance(requireContext())
             .getAllProducts()
-            .enqueue(object : Callback<List<Product>> {
+            .enqueue(object : Callback<PageResponse<Product>> {
 
                 override fun onResponse(
-                    call: Call<List<Product>>,
-                    response: Response<List<Product>>
+                    call: Call<PageResponse<Product>>,
+                    response: Response<PageResponse<Product>>
                 ) {
                     response.body()?.let {
-                        adapter.submitData(it)
+                        adapter.submitData(it.content)
                         favoriteVM.favorites.value?.let { fav ->
                             adapter.updateFavorites(fav)
                         }
@@ -166,7 +216,7 @@ class DetailFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                override fun onFailure(call: Call<PageResponse<Product>>, t: Throwable) {
                     showSimilarContent()
                 }
             })
@@ -232,6 +282,54 @@ class DetailFragment : Fragment() {
                 }
             })
     }
+
+    private fun setupImagePager(images: List<ProductImage>) {
+
+        val adapter = ImagePagerAdapter(images)
+        binding.vpImages.adapter = adapter
+
+        setupImageDots(images.size)
+
+        binding.vpImages.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    updateImageDots(position)
+                }
+            }
+        )
+    }
+    private fun setupImageDots(size: Int) {
+        imageDots.clear()
+        binding.imageDotIndicator.removeAllViews()
+
+        for (i in 0 until size) {
+            val dot = ImageView(requireContext())
+            dot.setImageResource(R.drawable.dot_inactive)
+
+            val params = LinearLayout.LayoutParams(20, 20)
+            params.setMargins(8, 0, 8, 0)
+            dot.layoutParams = params
+
+            binding.imageDotIndicator.addView(dot)
+            imageDots.add(dot)
+        }
+
+        if (imageDots.isNotEmpty()) {
+            imageDots[0].setImageResource(R.drawable.dot_active)
+        }
+    }
+    private fun updateImageDots(position: Int) {
+        for (i in imageDots.indices) {
+            imageDots[i].setImageResource(
+                if (i == position)
+                    R.drawable.dot_active
+                else
+                    R.drawable.dot_inactive
+            )
+        }
+    }
+
+
 
     // ================= UI =================
     private fun updateLikeIcon(isFavorite: Boolean) {

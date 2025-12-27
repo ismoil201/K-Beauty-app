@@ -10,30 +10,26 @@ interface ApiService {
     // ================= AUTH =================
 
     @POST("/api/auth/login")
-    fun login(
-        @Body req: LoginRequest
-    ): Call<LoginResponse>
+    fun login(@Body req: LoginRequest): Call<LoginResponse>
 
-
-    // 🔥 FIREBASE LOGIN (GOOGLE / PHONE)
     @POST("/api/auth/firebase")
-    fun firebaseLogin(
-        @Body req: FirebaseLoginRequest
-    ): Call<LoginResponse>
-    @POST("/api/auth/register")
+    fun firebaseLogin(@Body req: FirebaseLoginRequest): Call<LoginResponse>
 
+    @POST("/api/auth/register")
     fun register(@Body req: RegisterRequest): Call<SimpleResponse>
 
     // ================= PRODUCTS (PUBLIC) =================
 
     @GET("/api/products")
-    fun getAllProducts(): Call<List<Product>>
+    fun getAllProducts(
+        @Query("page") page: Int = 0,
+        @Query("size") size: Int = 20
+    ): Call<PageResponse<Product>>
 
     @GET("/api/products/{id}")
     fun getProductDetail(
         @Path("id") id: Long
     ): Call<ProductDetail>
-
 
     // ================= FAVORITES (JWT) =================
 
@@ -45,13 +41,10 @@ interface ApiService {
     @GET("/api/favorites")
     fun getMyFavorites(): Call<List<Product>>
 
-
     // ================= CART (JWT) =================
 
     @POST("/api/cart")
-    fun addToCart(
-        @Body body: CartAddRequest
-    ): Call<ResponseBody>
+    fun addToCart(@Body body: CartAddRequest): Call<ResponseBody>
 
     @GET("/api/cart")
     fun getMyCart(): Call<List<CartItem>>
@@ -67,13 +60,10 @@ interface ApiService {
         @Path("cartItemId") cartItemId: Long
     ): Call<ResponseBody>
 
-
     // ================= ORDERS (JWT) =================
 
     @POST("/api/orders")
-    fun createOrder(
-        @Body body: OrderCreateRequest
-    ): Call<OrderResponse>
+    fun createOrder(@Body body: OrderCreateRequest): Call<OrderResponse>
 
     @GET("/api/orders")
     fun getMyOrders(): Call<List<OrderResponse>>
@@ -82,4 +72,13 @@ interface ApiService {
     fun getOrderDetail(
         @Path("orderId") orderId: Long
     ): Call<OrderResponse>
+
+
+
+    @GET("/api/reviews/product/{productId}")
+    fun getReviewsByProduct(
+        @Path("productId") productId: Long
+    ): Call<List<ReviewResponse>>
+
+
 }

@@ -45,35 +45,40 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductVh, position: Int) {
         val item = list[position]
+        val b = holder.binding
 
-        holder.binding.tvBrand.text = item.category +"· Korea"
-        holder.binding.tvName.text = item.name
-        holder.binding.tvFinalPrice.text = "${item.price}$"
-        if(item.isFavorite){
-            holder.binding.btnLike.setImageResource(R.drawable.heart_clicked_svg)
-        }
+        // BRAND
+        b.tvBrand.text = "${item.category} · Korea"
 
-        holder.binding.btnLike.setImageResource(
+        // NAME
+        b.tvName.text = item.name
+
+        // PRICE
+        b.tvFinalPrice.text = "${item.discountPrice}$"
+
+        // ❤️ FAVORITE
+        b.btnLike.setImageResource(
             if (item.isFavorite)
                 R.drawable.heart_clicked_svg
             else
                 R.drawable.heart_svg
         )
 
-        holder.binding.btnLike.setOnClickListener {
+        b.btnLike.setOnClickListener {
             onLikeClick(item)
         }
 
+        // 🔥 IMAGE (ENG MUHIM FIX)
         Glide.with(holder.itemView.context)
-            .load(item.imageUrl)
-//            .placeholder(R.drawable.placeholder) // ixtiyoriy
-//            .error(R.drawable.placeholder)
-            .into(holder.binding.imgProduct)
+            .load(item.mainImage())
+            .placeholder(R.drawable.img)
+            .into(b.imgProduct)
 
+        // CLICK
         holder.itemView.setOnClickListener {
-            Log.d("CLICK", "open detail id=${item.id}")
+            Log.d("CLICK", "clicked product id=${item.id}")
 
-            onClickItem(item.id)   // ✅ Long
+            onClickItem(item.id)
         }
     }
 

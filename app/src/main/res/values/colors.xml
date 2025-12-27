@@ -8,5 +8,8 @@
 
     <color name="green">#6EC17A</color>
     <color name="gray">#999999</color>
-
+    <color name="green_500">#2DB400</color>   <!-- Coupang green -->
+    <color name="blue_500">#2979FF</color>
+    <color name="red_500">#E53935</color>
+    <color name="gray_500">#757575</color>
 </resources>

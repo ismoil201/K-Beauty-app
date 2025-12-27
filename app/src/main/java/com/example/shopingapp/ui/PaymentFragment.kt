@@ -11,7 +11,7 @@ import com.example.shopingapp.R
 import com.example.shopingapp.databinding.FragmentPaymentBinding
 import com.example.shopingapp.model.OrderResponse
 import com.example.shopingapp.model.PaymentType
-import com.example.shopingapp.network.OrderCreateRequest
+import com.example.shopingapp.model.OrderCreateRequest
 import com.example.shopingapp.network.RetrofitClient
 import com.google.android.material.card.MaterialCardView
 import retrofit2.Call

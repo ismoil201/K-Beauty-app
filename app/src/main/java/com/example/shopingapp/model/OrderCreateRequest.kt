@@ -1,4 +1,4 @@
-package com.example.shopingapp.network
+package com.example.shopingapp.model
 
 data class OrderCreateRequest(
     val address: String,

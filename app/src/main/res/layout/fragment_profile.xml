@@ -29,7 +29,6 @@
         <include
             android:id="@+id/layoutUserInfo"
             layout="@layout/item_profile_user"
-            android:layout_marginHorizontal="16dp"
             android:visibility="visible" />
 
         <!-- ================= ORDERS ================= -->
@@ -152,42 +151,36 @@
             android:textSize="14sp" />
         <include
             android:id="@+id/rowBonus"
-            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_cupon"
             app:icon="@drawable/gift_svg"
             app:title="Kuponlarim" />
 
         <include
             android:id="@+id/rowSupport"
-            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_support"
             app:icon="@drawable/support_svg"
             app:title="Mijozlar xizmati" />
 
         <include
             android:id="@+id/rowAnnouncement"
-            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_notice"
             app:icon="@drawable/notice_svg"
             app:title="E’lonlar" />
 
         <include
             android:id="@+id/rowPrivacy"
-            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_user_shield"
             app:icon="@drawable/user_shield_svg"
             app:title="Maxfiylik siyosati" />
 
         <include
             android:id="@+id/rowTerms"
-            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_document"
             app:icon="@drawable/paper_document_svg"
             app:title="Foydalanish shartlari" />
 
         <include
             android:id="@+id/rowOpenSource"
-            android:layout_marginHorizontal="16dp"
             layout="@layout/item_profile_code"
             app:icon="@drawable/code_svg"
             app:title="Ochiq kod litsenziyalari" />

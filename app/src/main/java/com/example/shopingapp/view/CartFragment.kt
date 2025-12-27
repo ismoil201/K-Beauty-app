@@ -11,11 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopingapp.R
-import com.example.shopingapp.adapter.OrderProductAdapter
+import com.example.shopingapp.adapter.CartProductAdapter
 import com.example.shopingapp.adapter.ShimmerAdapter
 import com.example.shopingapp.databinding.FragmentCartBinding
 import com.example.shopingapp.model.CartItem
@@ -27,10 +26,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CartFragment : Fragment(),
-    OrderProductAdapter.CartActionListener {
+    CartProductAdapter.CartActionListener {
 
     private lateinit var binding: FragmentCartBinding
-    private lateinit var adapter: OrderProductAdapter
+    private lateinit var adapter: CartProductAdapter
     private lateinit var shimmerAdapter: ShimmerAdapter
     private lateinit var sessionManager: SessionManager
 
@@ -80,7 +79,7 @@ class CartFragment : Fragment(),
     }
 
     private fun setupRecycler() {
-        adapter = OrderProductAdapter(mutableListOf(),
+        adapter = CartProductAdapter(mutableListOf(),
             listener = this,
             onProductClick = { product ->
                 findNavController().navigate(

@@ -1,3 +1,3 @@
-package com.example.shopingapp.network
+package com.example.shopingapp.model
 
 data class FavoriteResponse(val favorite: Boolean)

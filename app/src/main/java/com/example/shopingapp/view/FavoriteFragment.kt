@@ -13,7 +13,7 @@ import com.example.shopingapp.adapter.ProductAdapter
 import com.example.shopingapp.adapter.ShimmerAdapter
 import com.example.shopingapp.databinding.FragmentFavoriteBinding
 import com.example.shopingapp.model.Product
-import com.example.shopingapp.network.FavoriteResponse
+import com.example.shopingapp.model.FavoriteResponse
 import com.example.shopingapp.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback

@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.shopingapp.model.PageResponse
 import com.example.shopingapp.model.Product
 import com.example.shopingapp.network.RetrofitClient
 import retrofit2.Call
@@ -22,24 +23,22 @@ class HomeViewModel(application: Application) :
         if (loaded) return
 
         api.getAllProducts()
-            .enqueue(object : Callback<List<Product>> {
+            .enqueue(object : Callback<PageResponse<Product>> {
 
                 override fun onResponse(
-                    call: Call<List<Product>>,
-                    response: Response<List<Product>>
+                    call: Call<PageResponse<Product>>,
+                    response: Response<PageResponse<Product>>
                 ) {
-                    Log.d("HOME_VM", "code=${response.code()}")
-                    Log.d("HOME_VM", "body=${response.body()}")
-
-                    if (response.isSuccessful) {
-                        products.value = response.body() ?: emptyList()
+                    if (response.isSuccessful && response.body() != null) {
+                        products.value = response.body()!!.content
                         loaded = true
                     }
                 }
 
-                override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                override fun onFailure(call: Call<PageResponse<Product>>, t: Throwable) {
                     Log.e("HOME_VM", "API error", t)
                 }
             })
+
     }
 }

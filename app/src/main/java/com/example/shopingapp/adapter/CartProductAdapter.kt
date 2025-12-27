@@ -8,13 +8,13 @@ import com.example.shopingapp.databinding.ItemCartProductBinding
 import com.example.shopingapp.model.CartItem
 import com.example.shopingapp.model.Product
 
-class OrderProductAdapter(
+class CartProductAdapter(
     private val list: MutableList<CartItem> = mutableListOf(),
     private val listener: CartActionListener,
     private val onProductClick: (Product) -> Unit,
     private val onProductDelete: (Product) -> Unit
 
-) : RecyclerView.Adapter<OrderProductAdapter.VH>() {
+) : RecyclerView.Adapter<CartProductAdapter.VH>() {
 
     inner class VH(val b: ItemCartProductBinding) :
         RecyclerView.ViewHolder(b.root)
@@ -38,7 +38,7 @@ class OrderProductAdapter(
             "${item.product.price * item.quantity} so'm"
 
         Glide.with(holder.itemView.context)
-            .load(item.product.imageUrl)
+            .load(item.product.images[position].main)
             .into(b.imgProduct)
 
         // ✅ CHECKBOX

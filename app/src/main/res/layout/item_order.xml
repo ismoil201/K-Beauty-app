@@ -8,7 +8,7 @@
     android:background="@color/white"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
-    android:layout_margin="10dp"
+    android:layout_margin="4dp"
     app:cardUseCompatPadding="true"
     app:strokeWidth="0dp">
 
@@ -23,10 +23,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="12/26(금) 도착 예정"
+            android:text=""
             android:textColor="#111111"
             android:textSize="11sp"
             android:textStyle="bold"
+            android:fontFamily="@font/montserrat_medium"
             android:includeFontPadding="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
